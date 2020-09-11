@@ -118,9 +118,9 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // app.use('/public', express.static('public'));
 
-app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
-})
+// app.get('/', (request, response) => {
+//   response.json({ info: 'Node.js, Express, and Postgres API' })
+// })
 
 //SONGS ROUTES
 app.get('/songs', db.getSongs)
@@ -219,13 +219,13 @@ app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 
 
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`App running on port ${port}.`)
-})
-
-// app.listen(port, () => {
+// app.listen(process.env.PORT || port, () => {
 //   console.log(`App running on port ${port}.`)
 // })
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 
 module.exports = {

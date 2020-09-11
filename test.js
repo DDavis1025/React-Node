@@ -98,6 +98,7 @@ let insert_result;
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
           });
+        })
     }).then(() => {
           db.pool.query("DELETE FROM songs WHERE path <> ALL ($1) AND album_id = $2",
           [pathArr, id])
@@ -126,10 +127,9 @@ let insert_result;
         db.pool.query(
         'UPDATE file SET image_name = $1, path = $2 WHERE album_id = $3',
         [request.files.file[0].filename, request.files.file[0].key, id]);
-       }       }
+       }    
       }).then((result) => {
          response.status(200).send({ message: "Success updating" });
-         console.log("UPDATED file");
       }).catch(e => console.log(e));
 
         
