@@ -3,6 +3,7 @@ const db = require('./queries');
 const fs = require('fs');
 var path = require('path');
 var indexJS = require('./index');
+var info = require('./info');
 
 const addData = (request, response) => {
 const uuid = uuidv4(); 
@@ -81,7 +82,7 @@ const updateVideoByID = (request, response) => {
       }).then((result) => {
       	    console.log("result path " + result.rows[0].path)
           if (request.files.file) {
-          var params = {  Bucket: indexJS.BUCKET_NAME, Key: result.rows[0].path };
+          var params = {  Bucket: info.BUCKET_NAME, Key: result.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -119,7 +120,7 @@ const deleteVideo = (request, response) => {
    	[id])
    }).then((results) => {
    	console.log("video results" + JSON.stringify(results))
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: results.rows[0].path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: results.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -134,7 +135,7 @@ const deleteVideo = (request, response) => {
    	[id])
    }).then((results) => {
    	console.log("video results" + JSON.stringify(results))
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: results.rows[0].path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: results.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted

@@ -2,8 +2,8 @@ const uuidv4 = require('uuid/v4');
 const db = require('./queries');
 const fs = require('fs');
 var path = require('path');
-
 var indexJS = require('./index');
+var info = require('./info');
 
 const addData = (request, response) => {
 const uuid = uuidv4(); 
@@ -81,7 +81,7 @@ const updateTrackByID = (request, response) => {
        [id])
       }).then((result) => {
         if (request.files.file != null) {
-          var params = {  Bucket: indexJS.BUCKET_NAME, Key: result.rows[0].path };
+          var params = {  Bucket: info.BUCKET_NAME, Key: result.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -117,7 +117,7 @@ const deleteTrack = (request, response) => {
     'SELECT * FROM track WHERE id = $1', 
     [id])
    }).then((results) => {
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: results.rows[0].path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: results.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -131,7 +131,7 @@ const deleteTrack = (request, response) => {
     'SELECT * FROM track_images WHERE id = $1', 
     [id])
    }).then((results) => {
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: results.rows[0].path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: results.rows[0].path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted

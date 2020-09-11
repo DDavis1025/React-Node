@@ -19,6 +19,7 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
+var info = require('./info');
 
 
 
@@ -44,8 +45,8 @@ const IAM_USER_SECRET = ''
 exports.BUCKET_NAME = BUCKET_NAME;
 
 aws.config.update({
-    secretAccessKey: IAM_USER_SECRET,
-    accessKeyId: IAM_USER_KEY,
+    secretAccessKey: info.IAM_USER_SECRET,
+    accessKeyId: info.IAM_USER_KEY,
     region: 'us-east-1'
 });
 
@@ -69,7 +70,7 @@ app.get('/authorized', function (req, res) {
 
 var storage = multerS3 ({
         s3: s3,
-        bucket: BUCKET_NAME,
+        bucket: info.BUCKET_NAME,
         key: function (req, file, cb) {
             console.log(file);
             cb(null, Date.now() + '-' + file.originalname); //use Date.now() for unique file keys

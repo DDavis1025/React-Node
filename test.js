@@ -3,6 +3,7 @@ const db = require('./queries');
 const fs = require('fs');
 var path = require('path');
 var indexJS = require('./index');
+var info = require('./info');
 
 
 const addData = (request, response) => {
@@ -92,7 +93,7 @@ let insert_result;
             [pathArr, id])
     }).then((result) => {
           result.rows.map((row) => {
-          var params = {  Bucket: indexJS.BUCKET_NAME, Key: row.path };
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -116,7 +117,7 @@ let insert_result;
       if (request.files.file) {
         console.log("request.files.file[0]" + JSON.stringify(request.files.file[0]))
         if (image != undefined) {
-          var params = {  Bucket: indexJS.BUCKET_NAME, Key: image };
+          var params = {  Bucket: info.BUCKET_NAME, Key: image };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -145,7 +146,7 @@ const deleteSongs = (request, response) => {
     result.rows.forEach((song, index) => {
        console.log(song.name);
        console.log(song.path);
-       var params = {  Bucket: indexJS.BUCKET_NAME, Key: song.path };
+       var params = {  Bucket: info.BUCKET_NAME, Key: song.path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -165,7 +166,7 @@ const deleteAll = (request, response) => {
    db.pool.query('SELECT * FROM file WHERE album_id = $1',
   [id])
   .then((result) => {
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: result.rows[0].path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: result.rows[0].path };
         indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
@@ -176,7 +177,7 @@ const deleteAll = (request, response) => {
    [id])
   }).then((result) => {
    result.rows.forEach((element) => {
-    var params = {  Bucket: indexJS.BUCKET_NAME, Key: element.path };
+    var params = {  Bucket: info.BUCKET_NAME, Key: element.path };
         indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
           else     console.log("deleted" + data);                 // deleted
