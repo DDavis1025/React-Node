@@ -1,7 +1,8 @@
 const uuidv4 = require('uuid/v4');
+const Pool = require('pg').Pool
+const url = require('url')
 const params = url.parse(process.env.DATABASE_URL);
 const auth = params.auth.split(':');
-const Pool = require('pg').Pool
 const pool = new Pool({
   user: auth[0],
   password: auth[1],
