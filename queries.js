@@ -1,12 +1,22 @@
 const uuidv4 = require('uuid/v4');
+const params = url.parse(process.env.DATABASE_URL);
+const auth = params.auth.split(':');
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'me',
-  host: 'localhost',
-  database: 'api',
-  password: 'password',
-  port: 5432,
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split('/')[1],
+  ssl: true
 })
+// const pool = new Pool({
+//   user: 'me',
+//   host: 'localhost',
+//   database: 'api',
+//   password: 'password',
+//   port: 5432,
+// })
 const getSongs = (request, response) => {
   pool.query('SELECT * FROM songs ORDER BY index ASC', (error, results) => {
     if (error) {
