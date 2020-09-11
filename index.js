@@ -135,9 +135,6 @@ app.get('/songs/:id', db.getSongById);
 //ALBUMS ROUTES
 // app.get('/albums', album.getAlbums)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
 
 app.get('/albums', query.getAll);
 app.get('/albums/:id', query.getAllByID);
@@ -214,7 +211,9 @@ app.delete('/deleteComment/:comment_id/:user_id', comment.deleteComment);
 app.delete('/deleteSubComment/:comment_id/:user_id', comment.deleteSubComment);
 app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 
