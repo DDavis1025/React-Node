@@ -37,9 +37,9 @@ var multerS3 = require('multer-s3');
 // app.use(jwtCheck);
 
 
-const BUCKET_NAME = 'hiphopvolumebucket'
-const IAM_USER_KEY = 'AKIAXDGILESFEP4MB55R'
-const IAM_USER_SECRET = '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'
+const BUCKET_NAME = ''
+const IAM_USER_KEY = ''
+const IAM_USER_SECRET = ''
 
 exports.BUCKET_NAME = BUCKET_NAME;
 
