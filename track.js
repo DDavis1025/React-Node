@@ -91,9 +91,9 @@ const updateTrackByID = (request, response) => {
            'UPDATE track_images SET path = $1 WHERE id = $2', 
             [request.files.file[0].key, id])
         }
-            response.status(200).send({ message: "Success: PUT request successful" });
-         })
-      .catch((err) => {
+      }).then(()=> {
+          response.status(200).send({ message: "Success: PUT request successful" });
+      }).catch((err) => {
       console.log(`Error: ${err}`)
      })
 }
