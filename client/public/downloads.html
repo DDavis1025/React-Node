@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<body>
+<input type="file" id="upload-file" multiple />
+
+<div id="destination"><h1>destination</h1> </div>
+
+<output id="list"></output>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</body>
+
+<script>
+var inputId = document.getElementById('upload-file');
+
+if (inputId) {
+	inputId.addEventListener('change', function() {
+	var file;
+	var destination = document.getElementById('destination');
+	destination.innerHTML = '';
+  
+  var audioAlreadyUsed = true;
+  var ulAlreadyAdded = true;
+  var alreadyUsed = true;
+  
+
+	// Looping in case they uploaded multiple files
+  
+  
+ 
+ 
+ 
+  
+
+	for(var x = 0, xlen = this.files.length; x < xlen; x++) {
+    
+
+
+        let a = document.createElement('a');
+    
+    file = this.files[x];
+    
+    a.innerHTML = file.name;
+    console.log(file.name);
+		if(file.type.indexOf('audio/mp3') != -1) { // Very primitive "validation"
+      
+			var reader = new FileReader();
+			reader.onload = function(e) {
+        var ul = document.createElement("UL");
+        ul.id = "playlist";
+				var audio = document.createElement("AUDIO");
+				audio.id = "audio";
+				// audio.src = e.target.result;
+				audio.controls = true;
+				audio.preload = "none";
+        
+        if(audioAlreadyUsed) {
+		    destination.appendChild(audio);
+        
+        audioAlreadyUsed = false;
+        }
+        
+        if(ulAlreadyAdded) {
+         destination.appendChild(ul);
+         ulAlreadyAdded = false;
+        }
+      
+        
+       var li = document.createElement("LI");
+        
+   
+        li.class = "active";
+        li.id = "liID";
+     
+        
+      
+        
+        var clone = li.cloneNode(true);
+        
+        
+        
+  
+       
+        document.getElementById("playlist").appendChild(clone);
+
+      
+
+        a.href = e.target.result;
+    
+        
+        
+ // var link = document.createTextNode(file.name);
+       
+                
+    clone.appendChild(a);
+        
+      
+        
+      //PLAYLIST CODE
+var audio;
+var playlist;
+var tracks;
+var current;
+
+init();
+function init(){
+    current = 0;
+    audio = $('audio');
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    len = tracks.length - 1;
+    audio[0].volume = .10;
+    // audio[0].play();
+
+    playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, audio[0]);
+    });
+    audio[0].addEventListener('ended',function(e){
+        current++;
+        if(current == len){
+            current = 0;
+            link = playlist.find('a')[0];
+        }else{
+            link = playlist.find('a')[current];    
+        }
+        run($(link),audio[0]);
+    });
+}
+function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+  
+   // Show loading animation.
+  var playPromise = audio[0].play();
+ 
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      // Automatic playback started!
+      // Show playing UI.
+      // We can now safely pause video...
+      audio.pause();
+    })
+    .catch(error => {
+      // Auto-play was prevented
+      // Show paused UI.
+    });
+  }
+  
+};
+  
+      
+        
+};
+
+      
+              
+     
+    
+			reader.readAsDataURL(file);
+		};
+    
+ 
+      
+	}
+     
+});
+};
+      
+
+</script>
+</html>
