@@ -114,7 +114,7 @@ app.use(function(req, res, next) {
 
 // app.use('/public', express.static('public'));
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // app.use('/public', express.static('public'));
 
@@ -135,9 +135,9 @@ app.get('/songs/:id', db.getSongById);
 //ALBUMS ROUTES
 // app.get('/albums', album.getAlbums)
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 app.get('/albums', query.getAll);
 app.get('/albums/:id', query.getAllByID);
@@ -219,13 +219,13 @@ app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 
 
 
-// app.listen(process.env.PORT || port, () => {
-//   console.log(`App running on port ${port}.`)
-// })
-
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`App running on port ${port}.`)
 })
+
+// app.listen(port, () => {
+//   console.log(`App running on port ${port}.`)
+// })
 
 
 module.exports = {
