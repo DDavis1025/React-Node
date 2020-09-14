@@ -33,6 +33,28 @@ button.btn.btn-secondary.btn-lg {
     background-color: #353535;
 }
 
+.btn {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #5a6268;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #5a6268;
+}
+
+.btn {
+    color: white !important;
+}
+
+.btn-success {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: #28a745;
+}
+
 
 body {
   font-family: "Lato", sans-serif;
