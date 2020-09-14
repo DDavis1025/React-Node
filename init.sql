@@ -38,7 +38,7 @@ SET default_table_access_method = heap;
 -- Name: albums; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE albums (
+CREATE TABLE public.albums (
     id uuid NOT NULL,
     date date,
     description character varying(255),
@@ -49,26 +49,26 @@ CREATE TABLE albums (
 );
 
 
--- ALTER TABLE public.albums OWNER TO dillondavis;
+ALTER TABLE public.albums OWNER TO dillondavis;
 
 --
 -- Name: comment_likes; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE comment_likes (
+CREATE TABLE public.comment_likes (
     comment_id text,
     user_id text,
     time_added timestamp with time zone DEFAULT now()
 );
 
 
--- ALTER TABLE public.comment_likes OWNER TO dillondavis;
+ALTER TABLE public.comment_likes OWNER TO dillondavis;
 
 --
 -- Name: comments; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE comments (
+CREATE TABLE public.comments (
     id uuid NOT NULL,
     username character varying(90),
     user_picture text,
@@ -81,13 +81,13 @@ CREATE TABLE comments (
 );
 
 
--- ALTER TABLE public.comments OWNER TO dillondavis;
+ALTER TABLE public.comments OWNER TO dillondavis;
 
 --
 -- Name: fields; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE fields (
+CREATE TABLE public.fields (
     id uuid NOT NULL,
     date date,
     description character varying(255),
@@ -98,13 +98,13 @@ CREATE TABLE fields (
 );
 
 
--- ALTER TABLE public.fields OWNER TO dillondavis;
+ALTER TABLE public.fields OWNER TO dillondavis;
 
 --
 -- Name: file; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE file (
+CREATE TABLE public.file (
     image_name character varying(255),
     type character varying(100),
     size integer,
@@ -113,13 +113,13 @@ CREATE TABLE file (
 );
 
 
--- ALTER TABLE public.file OWNER TO dillondavis;
+ALTER TABLE public.file OWNER TO dillondavis;
 
 --
 -- Name: notifications; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE notifications (
+CREATE TABLE public.notifications (
     user_id text,
     supporter_id text,
     message text,
@@ -138,13 +138,13 @@ CREATE TABLE notifications (
 );
 
 
--- ALTER TABLE public.notifications OWNER TO dillondavis;
+ALTER TABLE public.notifications OWNER TO dillondavis;
 
 --
 -- Name: post_likes; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE post_likes (
+CREATE TABLE public.post_likes (
     user_id text,
     post_id text,
     time_added timestamp with time zone DEFAULT now(),
@@ -152,13 +152,13 @@ CREATE TABLE post_likes (
 );
 
 
--- ALTER TABLE public.post_likes OWNER TO dillondavis;
+ALTER TABLE public.post_likes OWNER TO dillondavis;
 
 --
 -- Name: songs; Type: TABLE; Schema: public; Owner: me
 --
 
-CREATE TABLE songs (
+CREATE TABLE public.songs (
     name character varying(200),
     link character varying(30),
     index integer,
@@ -168,13 +168,13 @@ CREATE TABLE songs (
 );
 
 
--- ALTER TABLE public.songs OWNER TO me;
+ALTER TABLE public.songs OWNER TO me;
 
 --
 -- Name: sub_comments; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE sub_comments (
+CREATE TABLE public.sub_comments (
     id uuid NOT NULL,
     username character varying(90),
     user_picture text,
@@ -186,52 +186,52 @@ CREATE TABLE sub_comments (
 );
 
 
--- ALTER TABLE public.sub_comments OWNER TO dillondavis;
+ALTER TABLE public.sub_comments OWNER TO dillondavis;
 
 --
 -- Name: track; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE track (
+CREATE TABLE public.track (
     path text,
     id uuid,
     author text
 );
 
 
--- ALTER TABLE public.track OWNER TO dillondavis;
+ALTER TABLE public.track OWNER TO dillondavis;
 
 --
 -- Name: track_images; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE track_images (
+CREATE TABLE public.track_images (
     path text,
     id uuid,
     author text
 );
 
 
--- ALTER TABLE public.track_images OWNER TO dillondavis;
+ALTER TABLE public.track_images OWNER TO dillondavis;
 
 --
 -- Name: user_followers; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE user_followers (
+CREATE TABLE public.user_followers (
     user_id text,
     follower_id text,
     time_added timestamp with time zone DEFAULT now()
 );
 
 
--- ALTER TABLE public.user_followers OWNER TO dillondavis;
+ALTER TABLE public.user_followers OWNER TO dillondavis;
 
 --
 -- Name: user_images; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE user_images (
+CREATE TABLE public.user_images (
     image_name character varying(255),
     type character varying(100),
     size integer,
@@ -240,180 +240,180 @@ CREATE TABLE user_images (
 );
 
 
--- ALTER TABLE public.user_images OWNER TO dillondavis;
+ALTER TABLE public.user_images OWNER TO dillondavis;
 
 --
 -- Name: user_info; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE user_info (
+CREATE TABLE public.user_info (
     username text,
     user_id text
 );
 
 
--- ALTER TABLE public.user_info OWNER TO dillondavis;
+ALTER TABLE public.user_info OWNER TO dillondavis;
 
 --
 -- Name: video; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE video (
+CREATE TABLE public.video (
     path text,
     id uuid,
     author text
 );
 
 
--- ALTER TABLE public.video OWNER TO dillondavis;
+ALTER TABLE public.video OWNER TO dillondavis;
 
 --
 -- Name: video_thumbnails; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
-CREATE TABLE video_thumbnails (
+CREATE TABLE public.video_thumbnails (
     path text,
     id uuid,
     author text
 );
 
 
--- ALTER TABLE public.video_thumbnails OWNER TO dillondavis;
+ALTER TABLE public.video_thumbnails OWNER TO dillondavis;
 
 --
 -- Data for Name: albums; Type: TABLE DATA; Schema: public; Owner: dillondavis
 --
 
--- COPY public.albums (id, date, description, title, time_added, author, type) FROM stdin;
--- c65dab16-e201-425a-b57f-cd5a47ae3eee	\N	\N	Title	2020-09-14 13:24:14.415861-04	\N	\N
--- \.
+COPY public.albums (id, date, description, title, time_added, author, type) FROM stdin;
+c65dab16-e201-425a-b57f-cd5a47ae3eee    \N  \N  Title   2020-09-14 13:24:14.415861-04   \N  \N
+\.
 
 
--- --
--- -- Data for Name: comment_likes; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: comment_likes; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.comment_likes (comment_id, user_id, time_added) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.comments (id, username, user_picture, user_id, time_added, text, post_id, like_users, likes) FROM stdin;
--- \.
+COPY public.comment_likes (comment_id, user_id, time_added) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: fields; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.fields (id, date, description, title, time_added, author, type) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: file; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.file (image_name, type, size, path, album_id) FROM stdin;
--- \.
+COPY public.comments (id, username, user_picture, user_id, time_added, text, post_id, like_users, likes) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: fields; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.notifications (user_id, supporter_id, message, post_id, parent_commentid, comment_id, time_added, tableview_index, parentsubcommentid, supporter_username, supporter_picture, parent_comment, post_image, post_type, new) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: post_likes; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.post_likes (user_id, post_id, time_added, type) FROM stdin;
--- \.
+COPY public.fields (id, date, description, title, time_added, author, type) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: songs; Type: TABLE DATA; Schema: public; Owner: me
--- --
+--
+-- Data for Name: file; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.songs (name, link, index, album_id, id, path) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: sub_comments; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.sub_comments (id, username, user_picture, user_id, time_added, text, parent_id, post_id) FROM stdin;
--- \.
+COPY public.file (image_name, type, size, path, album_id) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.track (path, id, author) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: track_images; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.track_images (path, id, author) FROM stdin;
--- \.
+COPY public.notifications (user_id, supporter_id, message, post_id, parent_commentid, comment_id, time_added, tableview_index, parentsubcommentid, supporter_username, supporter_picture, parent_comment, post_image, post_type, new) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: user_followers; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: post_likes; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.user_followers (user_id, follower_id, time_added) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: user_images; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.user_images (image_name, type, size, path, user_id) FROM stdin;
--- \.
+COPY public.post_likes (user_id, post_id, time_added, type) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: user_info; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: songs; Type: TABLE DATA; Schema: public; Owner: me
+--
 
--- COPY public.user_info (username, user_id) FROM stdin;
--- \.
-
-
--- --
--- -- Data for Name: video; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
-
--- COPY public.video (path, id, author) FROM stdin;
--- \.
+COPY public.songs (name, link, index, album_id, id, path) FROM stdin;
+\.
 
 
--- --
--- -- Data for Name: video_thumbnails; Type: TABLE DATA; Schema: public; Owner: dillondavis
--- --
+--
+-- Data for Name: sub_comments; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
 
--- COPY public.video_thumbnails (path, id, author) FROM stdin;
--- \.
+COPY public.sub_comments (id, username, user_picture, user_id, time_added, text, parent_id, post_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.track (path, id, author) FROM stdin;
+\.
+
+
+--
+-- Data for Name: track_images; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.track_images (path, id, author) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_followers; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.user_followers (user_id, follower_id, time_added) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_images; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.user_images (image_name, type, size, path, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_info; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.user_info (username, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: video; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.video (path, id, author) FROM stdin;
+\.
+
+
+--
+-- Data for Name: video_thumbnails; Type: TABLE DATA; Schema: public; Owner: dillondavis
+--
+
+COPY public.video_thumbnails (path, id, author) FROM stdin;
+\.
 
 
 --
 -- Name: albums albums_pkey; Type: CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY albums
+ALTER TABLE ONLY public.albums
     ADD CONSTRAINT albums_pkey PRIMARY KEY (id);
 
 
@@ -421,7 +421,7 @@ ALTER TABLE ONLY albums
 -- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY comments
+ALTER TABLE ONLY public.comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
@@ -429,7 +429,7 @@ ALTER TABLE ONLY comments
 -- Name: fields fields_pkey; Type: CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY fields
+ALTER TABLE ONLY public.fields
     ADD CONSTRAINT fields_pkey PRIMARY KEY (id);
 
 
@@ -437,7 +437,7 @@ ALTER TABLE ONLY fields
 -- Name: songs songs_pkey; Type: CONSTRAINT; Schema: public; Owner: me
 --
 
-ALTER TABLE ONLY songs
+ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_pkey PRIMARY KEY (id);
 
 
@@ -445,7 +445,7 @@ ALTER TABLE ONLY songs
 -- Name: sub_comments sub_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY sub_comments
+ALTER TABLE ONLY public.sub_comments
     ADD CONSTRAINT sub_comments_pkey PRIMARY KEY (id);
 
 
@@ -453,7 +453,7 @@ ALTER TABLE ONLY sub_comments
 -- Name: file unique_id; Type: CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY file
+ALTER TABLE ONLY public.file
     ADD CONSTRAINT unique_id UNIQUE (album_id);
 
 
@@ -461,7 +461,7 @@ ALTER TABLE ONLY file
 -- Name: songs unique_index_per_album; Type: CONSTRAINT; Schema: public; Owner: me
 --
 
-ALTER TABLE ONLY songs
+ALTER TABLE ONLY public.songs
     ADD CONSTRAINT unique_index_per_album UNIQUE (album_id, index);
 
 
@@ -469,121 +469,121 @@ ALTER TABLE ONLY songs
 -- Name: file file_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dillondavis
 --
 
-ALTER TABLE ONLY file
-    ADD CONSTRAINT file_album_id_fkey FOREIGN KEY (album_id) REFERENCES albums(id);
+ALTER TABLE ONLY public.file
+    ADD CONSTRAINT file_album_id_fkey FOREIGN KEY (album_id) REFERENCES public.albums(id);
 
 
 --
 -- Name: songs songs_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: me
 --
 
-ALTER TABLE ONLY songs
-    ADD CONSTRAINT songs_album_id_fkey FOREIGN KEY (album_id) REFERENCES albums(id);
+ALTER TABLE ONLY public.songs
+    ADD CONSTRAINT songs_album_id_fkey FOREIGN KEY (album_id) REFERENCES public.albums(id);
 
 
 --
 -- Name: TABLE albums; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE albums TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.albums TO me;
 
 
 --
 -- Name: TABLE comment_likes; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE comment_likes TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.comment_likes TO me;
 
 
 --
 -- Name: TABLE comments; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE comments TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.comments TO me;
 
 
 --
 -- Name: TABLE fields; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE fields TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.fields TO me;
 
 
 --
 -- Name: TABLE file; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE file TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.file TO me;
 
 
 --
 -- Name: TABLE notifications; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT ALL ON TABLE notifications TO me;
+GRANT ALL ON TABLE public.notifications TO me;
 
 
 --
 -- Name: TABLE post_likes; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT ALL ON TABLE post_likes TO me;
+GRANT ALL ON TABLE public.post_likes TO me;
 
 
 --
 -- Name: TABLE sub_comments; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE sub_comments TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.sub_comments TO me;
 
 
 --
 -- Name: TABLE track; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,UPDATE ON TABLE track TO me;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.track TO me;
 
 
 --
 -- Name: TABLE track_images; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,UPDATE ON TABLE track_images TO me;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.track_images TO me;
 
 
 --
 -- Name: TABLE user_followers; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE user_followers TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.user_followers TO me;
 
 
 --
 -- Name: TABLE user_images; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE user_images TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.user_images TO me;
 
 
 --
 -- Name: TABLE user_info; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT ALL ON TABLE user_info TO me;
+GRANT ALL ON TABLE public.user_info TO me;
 
 
 --
 -- Name: TABLE video; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE video TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.video TO me;
 
 
 --
 -- Name: TABLE video_thumbnails; Type: ACL; Schema: public; Owner: dillondavis
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE video_thumbnails TO me;
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.video_thumbnails TO me;
 
 
 --
