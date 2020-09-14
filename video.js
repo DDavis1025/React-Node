@@ -14,7 +14,7 @@ let video_id;
      console.log(JSON.stringify(request.body))
 
      db.pool.query(
-     	'INSERT INTO fields (title, date, description, author, type, id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *' ,
+     	'INSERT INTO fields (title, "date", description, author, type, id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *' ,
      	 [fields.title, fields.date, fields.description, fields.user_id, fields.type, uuid])
     .then(results => {
       video_id = results.rows[0].id;
@@ -22,13 +22,13 @@ let video_id;
       
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO video_thumbnails (path, id, author) VALUES ($1, $2, $3) RETURNING *',
+        'INSERT INTO video_thumbnails ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
         [request.files.file[0].key, video_id, author_id]);
   }).then(results => {
          console.log(results.rows)
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO video (path, id, author) VALUES ($1, $2, $3) RETURNING *',
+        'INSERT INTO video ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
         [request.files.video[0].key, video_id, author_id]);
   }).then(results => {
   	     response.status(200).send({ message: "Success: Added video" });
@@ -65,7 +65,7 @@ const getVideoByID = (request, response) => {
 const updateVideoByID = (request, response) => {
   const id = request.params.id;
   var fields = JSON.parse(request.body.fields);
-  db.pool.query('SELECT * FROM fields WHERE title = $1 AND date = $2 AND description = $3 AND id = $4', 
+  db.pool.query('SELECT * FROM fields WHERE title = $1 AND "date" = $2 AND description = $3 AND id = $4', 
     [fields.title, fields.date, fields.description, id])
      .then((result)=> {
         if (result.rowCount > 0){
@@ -73,7 +73,7 @@ const updateVideoByID = (request, response) => {
          } else {
            console.log("update fields")
            db.pool.query(
-          'UPDATE fields SET title = $1, date = $2, description = $3 WHERE id = $4', 
+          'UPDATE fields SET title = $1, "date" = $2, description = $3 WHERE id = $4', 
            [fields.title, fields.date, fields.description, id])
          }
      }).then(() => {
@@ -89,7 +89,7 @@ const updateVideoByID = (request, response) => {
           });
          	// fs.unlinkSync(path.join(__dirname, result.rows[0].path))
          	db.pool.query(
-           'UPDATE video_thumbnails SET path = $1 WHERE id = $2', 
+           'UPDATE video_thumbnails SET "path" = $1 WHERE id = $2', 
            [request.files.file[0].key, id])
          }
             response.status(200).send({ message: "Success: PUT request successful" });
@@ -164,7 +164,7 @@ const getAllVideos = (request, response) => {
 const getVideoPathByID = (request, response) => {
     const id = request.params.id;
 
-	db.pool.query('SELECT path FROM video WHERE id = $1',
+	db.pool.query('SELECT "path" FROM video WHERE id = $1',
 		[id])
 
     .then(results => {

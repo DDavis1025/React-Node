@@ -10,7 +10,7 @@ const addData = async (request, response) => {
 
     try {
     const insertCommentResults = await db.pool.query(
-     	'INSERT INTO comments (id, post_id, username, user_picture, user_id, text) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+     	'INSERT INTO comments (id, post_id, username, user_picture, user_id, "text") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
      	 [uuid, comments.post_id, comments.username, comments.user_picture, comments.user_id, comments.text])
          let comment_id = insertCommentResults.rows[0].id
          mainCommentRows = insertCommentResults.rows
@@ -44,7 +44,7 @@ const addSubComment = async (request, response) => {
 
     try {
     const results = await db.pool.query(
-        'INSERT INTO sub_comments (id, post_id, username, user_picture, user_id, text, parent_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+        'INSERT INTO sub_comments (id, post_id, username, user_picture, user_id, "text", parent_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
          [uuid, comments.post_id, comments.username, comments.user_picture, comments.user_id, comments.text, comments.parent_id])
          subCommentRows = results.rows
          comment_id = results.rows[0].id;
@@ -403,7 +403,7 @@ async function getPostImage(post_id) {
        
         if (results.rowCount <= 0) {
         const trackResults = await db.pool.query(
-        'SELECT path FROM track_images WHERE id = $1', 
+        'SELECT "path" FROM track_images WHERE id = $1', 
         [post_id])
             if (trackResults.rowCount <= 0) {
                 let videoResults = await db.pool.query(
@@ -419,7 +419,7 @@ async function getPostImage(post_id) {
         } else {
           let album_id = results.rows[0].album_id
           let albumResults = await db.pool.query(
-          'SELECT path FROM file WHERE album_id = $1', 
+          'SELECT "path" FROM file WHERE album_id = $1', 
           [album_id])
           albumResults.rows.unshift({"type": "album"})
            return albumResults

@@ -19,7 +19,7 @@ let image;
      album = JSON.parse(request.body.albums);
 
      db.pool.query(
-      'INSERT INTO albums (title, date, description, author, type, id) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING RETURNING *' , 
+      'INSERT INTO albums (title, "date", description, author, type, id) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING RETURNING *' , 
       [album.title, album.date, album.description, album.user_id, album.type, uuid])
     .then(res => {
       album_id = res.rows[0].id;
@@ -37,7 +37,7 @@ let image;
         Array.from(album.files).forEach((song1, index) => {
          const song2 = request.files.songs[index];
          dbQueryPromises.push(db.pool.query(
-          'INSERT INTO songs (id, name, index, path, album_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (album_id, index) DO NOTHING RETURNING *', 
+          'INSERT INTO songs (id, name, index, "path", album_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (album_id, index) DO NOTHING RETURNING *', 
           [uuidv4(), song1.name, song1.index, song2.key, album_id]))
        });      
         // console.log(album_files);
@@ -50,7 +50,7 @@ let image;
          console.log(res.rows);
        }).then(() => {
         db.pool.query(
-        'INSERT INTO file (path, album_id) VALUES ($1, $2) RETURNING *',
+        'INSERT INTO file ("path", album_id) VALUES ($1, $2) RETURNING *',
         [request.files.file[0].key, album_id]);
       }).then((res) => {
         response.status(200).send({ message: "Success" });
@@ -72,7 +72,7 @@ let pathArr = [];
 
 let result;
 let insert_result;
-   db.pool.query('UPDATE albums SET title = $1, date = $2, description = $3 WHERE id = $4', 
+   db.pool.query('UPDATE albums SET title = $1, "date" = $2, description = $3 WHERE id = $4', 
     [album.title, album.date, album.description, id])
      .then((result)=> {
         if (result.rowCount > 0){
@@ -80,7 +80,7 @@ let insert_result;
            return;
          } else {
            return db.pool.query(
-            'INSERT INTO albums (title, date, description, author, id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING RETURNING *', 
+            'INSERT INTO albums (title, "date", description, author, id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING RETURNING *', 
             [album.title, album.date, album.description, album.user_id, id]);
          }
      }).then((result) => {
@@ -106,7 +106,7 @@ let insert_result;
           console.log(JSON.stringify(album.afterSlice) + "album.afterSlice")
           album.afterSlice.map((song) => { 
           db.pool.query(
-          'UPDATE songs SET name = $1, index = $2, path = $3 WHERE album_id = $4', 
+          'UPDATE songs SET name = $1, index = $2, "path" = $3 WHERE album_id = $4', 
           [song.name, song.index, song.path, id])})
     }).then(() => {
       return db.pool.query('SELECT * FROM file WHERE album_id = $1', [id])
@@ -125,7 +125,7 @@ let insert_result;
           });
        }
         db.pool.query(
-        'UPDATE file SET image_name = $1, path = $2 WHERE album_id = $3',
+        'UPDATE file SET image_name = $1, "path" = $2 WHERE album_id = $3',
         [request.files.file[0].filename, request.files.file[0].key, id]);
        }    
       }).then((result) => {

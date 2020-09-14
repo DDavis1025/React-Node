@@ -20,11 +20,11 @@ let track_id;
       
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO track (path, id, author) VALUES ($1, $2, $3) RETURNING *',
+        'INSERT INTO track ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
         [request.files.track[0].key, track_id, author_id]);
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO track_images (path, id, author) VALUES ($1, $2, $3) RETURNING *',
+        'INSERT INTO track_images ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
         [request.files.file[0].key, track_id, author_id]);
   }).then(results => {
   }).then(results => {
@@ -88,7 +88,7 @@ const updateTrackByID = (request, response) => {
           });
           // fs.unlinkSync(path.join(__dirname, result.rows[0].path))
           db.pool.query(
-           'UPDATE track_images SET path = $1 WHERE id = $2', 
+           'UPDATE track_images SET "path" = $1 WHERE id = $2', 
             [request.files.file[0].key, id])
         }
       }).then(()=> {
@@ -161,11 +161,11 @@ const trackPathAndImageByID = (request, response) => {
     const id = request.params.id;
     let trackPathRows, trackImagesRows, all;
 
-  db.pool.query('SELECT path FROM track WHERE id = $1',
+  db.pool.query('SELECT "path" FROM track WHERE id = $1',
     [id])
   .then((result)=> {
     trackPathRows = result.rows
-    return db.pool.query('SELECT path FROM track_images WHERE id = $1',
+    return db.pool.query('SELECT "path" FROM track_images WHERE id = $1',
     [id])
   }).then((result)=> {
     trackImagesRows = result.rows

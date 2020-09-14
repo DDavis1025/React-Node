@@ -40,11 +40,11 @@ const getPostImageById = (request, response) => {
      .then((results) => {
     	if (results.rowCount <= 0) {
     	return db.pool.query(
-        'SELECT path FROM track_images WHERE id = $1', 
+        'SELECT "path" FROM track_images WHERE id = $1', 
         [id]).then((results) => {
         	if (results.rowCount <= 0) {
         		return db.pool.query(
-               'SELECT path FROM video_thumbnails WHERE id = $1', 
+               'SELECT "path" FROM video_thumbnails WHERE id = $1', 
                 [id]).then((results) => {
                 let type = {"type": "video"}
                 results.rows.push(type)
@@ -61,7 +61,7 @@ const getPostImageById = (request, response) => {
     	} else {
     	  let album_id = results.rows[0].album_id
           db.pool.query(
-          'SELECT path FROM file WHERE album_id = $1', 
+          'SELECT "path" FROM file WHERE album_id = $1', 
           [album_id]).then((results)=> {
           	let type = {"type":"album"}
           	results.rows.push(type)

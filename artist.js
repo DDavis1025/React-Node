@@ -1,6 +1,8 @@
 const db = require('./queries');
 const fs = require('fs');
 var path = require('path');
+var indexJS = require('./index');
+var info = require('./info');
 
 const getArtistByID = (request, response) => {
 	const id = request.params.id;
@@ -64,8 +66,8 @@ const uploadImage = (request, response) => {
     console.log("request.body" + JSON.stringify(request.body))
     console.log("request.file" + JSON.stringify(request.files))
     db.pool.query(
-        'INSERT INTO user_images (user_id, image_name, type, size, path) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [user_id, request.files.filename, request.files.mimetype, request.files.size, request.files.path])
+        'INSERT INTO user_images (user_id, image_name, "path") VALUES ($1, $2, $3) RETURNING *',
+        [user_id, request.files.filename, request.files.key])
       .then((res) => {
         response.status(200).send({ message: "Success: Uploaded Image" });
         console.log(`Success: Uploaded User Image + ${res.rows}`)
@@ -80,21 +82,23 @@ const upsertUserImage = (request, response) => {
     const { user_id } = request.body;
     console.log("request.body" + JSON.stringify(request.body))
     console.log("request.file" + JSON.stringify(request.files))
-    console.log("request.file" + JSON.stringify(request.files.file[0].path))
-    let picture_path = request.files.file[0].path
+    let picture_path = request.files.file[0].key
 
     db.pool.query('SELECT * FROM user_images WHERE user_id = $1', 
     [user_id])
     .then((res) => {
         if (res.rowCount > 0) {
-          console.log("res.rows" + JSON.stringify(res.rows))
-          console.log("request.file.path" + JSON.stringify(request.files.path))
           Promise.resolve().then(()=> {
           let picture_path = res.rows[0].path
-          fs.unlinkSync(path.join(__dirname, picture_path))
+          var params = {  Bucket: info.BUCKET_NAME, Key: picture_path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+          // fs.unlinkSync(path.join(__dirname, picture_path))
           }).then(()=> {
-          db.pool.query('UPDATE user_images SET user_id = $1, image_name = $2, type = $3, size = $4, path = $5 WHERE user_id = $1', 
-          [user_id, request.files.file[0].filename, request.files.file[0].mimetype, request.files.file[0].size, request.files.file[0].path])
+          db.pool.query('UPDATE user_images SET user_id = $1, image_name = $2, type = $3, size = $4, "path" = $5 WHERE user_id = $1', 
+          [user_id, request.files.file[0].filename, request.files.file[0].mimetype, request.files.file[0].size, request.files.file[0].key])
           .then((res) => {
           response.status(200).send({ message: "Success: Updated Image" });
           console.log(`Success: Updated User Image + ${res.rows}`)
@@ -102,8 +106,8 @@ const upsertUserImage = (request, response) => {
        })
         } else {
             db.pool.query(
-            'INSERT INTO user_images (user_id, image_name, type, size, path) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [user_id, request.files.file[0].filename, request.files.file[0].mimetype, request.files.file[0].size, request.files.file[0].path])
+            'INSERT INTO user_images (user_id, image_name, type, size, "path") VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [user_id, request.files.file[0].filename, request.files.file[0].mimetype, request.files.file[0].size, request.files.file[0].key])
             .then((res) => {
             response.status(200).send({ message: "Success: Added Image" });
             console.log("Success: Added User Image" + JSON.stringify(request.body))
