@@ -1,16 +1,22 @@
 const uuidv4 = require('uuid/v4');
-const Pool = require('pg').Pool
-const url = require('url')
-const params = url.parse(process.env.DATABASE_URL);
-const auth = params.auth.split(':');
+require('dotenv').config()
+const {Pool} = require('pg')
+const isProduction = process.env.NODE_ENV === 'production'
+
+other()
+
+const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`
+
 const pool = new Pool({
-  user: auth[0],
-  password: auth[1],
-  host: params.hostname,
-  port: params.port,
-  database: params.pathname.split('/')[1],
-  ssl: true
+  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  ssl: isProduction,
 })
+
+function other() {
+  console.log(`postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`)
+}
+
+// const Pool = require('pg').Pool
 // const pool = new Pool({
 //   user: 'me',
 //   host: 'localhost',
