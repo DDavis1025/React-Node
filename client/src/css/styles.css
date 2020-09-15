@@ -42,7 +42,7 @@ button.btn.btn-secondary.btn-lg {
 }
 
 .btn:hover {
-    background-color: #5a6268;
+    background-color: #5a6268 !important;
 }
 
 .btn {
