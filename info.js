@@ -1,6 +1,6 @@
 const BUCKET_NAME = 'hiphopvolumebucket'
-const IAM_USER_KEY = 'AKIAXDGILESFDWHZTQNP'
-const IAM_USER_SECRET = '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'
+const IAM_USER_KEY = ''
+const IAM_USER_SECRET = ''
 exports.BUCKET_NAME = BUCKET_NAME;
 exports.IAM_USER_KEY = IAM_USER_KEY;
 exports.IAM_USER_SECRET = IAM_USER_SECRET;
