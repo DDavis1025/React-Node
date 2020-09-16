@@ -19,6 +19,7 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
+var info = require('./info');
 require('dotenv').config()
 
 
@@ -36,13 +37,6 @@ require('dotenv').config()
 // });
 
 // app.use(jwtCheck);
-
-
-const BUCKET_NAME = ''
-const IAM_USER_KEY = ''
-const IAM_USER_SECRET = ''
-
-exports.BUCKET_NAME = BUCKET_NAME;
 
 aws.config.update({
     secretAccessKey: process.env.IAM_USER_SECRET,
