@@ -19,7 +19,6 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
-var info = require('./info');
 require('dotenv').config()
 
 
