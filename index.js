@@ -112,11 +112,9 @@ app.use(function(req, res, next) {
 });
 
 
-// app.use('/public', express.static('public'));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
-// app.use('/public', express.static('public'));
 
 // app.get('/', (request, response) => {
 //   response.json({ info: 'Node.js, Express, and Postgres API' })
