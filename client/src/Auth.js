@@ -7,7 +7,7 @@ class Auth {
       domain: 'dev-owihjaep.auth0.com',
       audience: 'https://dev-owihjaep.auth0.com/userinfo',
       clientID: 'z4B9Lh4mlL5pd4F8zJwtpEeLDFd3BaJX',
-      redirectUri: 'https://quiet-falls-26544.herokuapp.com',
+      redirectUri: 'https://hiphopvolume.com',
       responseType: 'id_token',
       scope: 'openid profile'
     });
