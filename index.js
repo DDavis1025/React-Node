@@ -20,6 +20,7 @@ var jwks = require('jwks-rsa');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
 var info = require('./info');
+require('dotenv').config()
 
 
 
@@ -45,8 +46,8 @@ const IAM_USER_SECRET = ''
 exports.BUCKET_NAME = BUCKET_NAME;
 
 aws.config.update({
-    secretAccessKey: info.IAM_USER_SECRET,
-    accessKeyId: info.IAM_USER_KEY,
+    secretAccessKey: process.env.IAM_USER_SECRET,
+    accessKeyId: process.env.IAM_USER_KEY,
     region: 'us-east-1'
 });
 
