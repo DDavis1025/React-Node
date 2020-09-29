@@ -20,6 +20,7 @@ var jwks = require('jwks-rsa');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
 var info = require('./info');
+var receiptValidator = require('./receiptValidation');
 require('dotenv').config()
 
 
@@ -107,7 +108,7 @@ app.use(function(req, res, next) {
 
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 // app.get('/', (request, response) => {
@@ -165,6 +166,8 @@ app.get('/getCommentLikes/:comment_id/', comment.getCommentLikes);
 app.get('/getNewNotifications/:id/', notification.getNewNoticationsByUser);
 app.get('/getUserInfo/:user_id/', artist.getUserInfo);
 app.get('/getUsername/:username/', artist.checkUsername);
+app.get('/verifyReceipt/:receipt/', receiptValidator.receiptValidator);
+app.get('/purchase/:user_id/:productIdentifier', artist.getPurchase);
 // app.get('/test/:id', apiCall.testGet);
 app.post('/follower', artist.addFollower);
 app.post('/upload', upload, artist.upsertUserImage);
@@ -175,6 +178,8 @@ app.post('/subCommentLike/:id', comment.updateSubCommentIsLiked)
 app.post('/postSubCommentNoticationIDs/:id/:second_id', notification.getSubCommentNotificationByIDs);
 app.post('/postLike/', query.addPostLike);
 app.post('/updateUserInfo/', artist.updateUserInfo);
+app.post('/verifyReceipt', receiptValidator.receiptValidator);
+app.post('/purchase', artist.addPurchase);
 
 // app.get('/albums/:id/songs', apiCall.selectSongs);
 // app.post('/albums/', apiCall.addData);
@@ -203,27 +208,25 @@ app.delete('/deleteComment/:comment_id/:user_id', comment.deleteComment);
 app.delete('/deleteSubComment/:comment_id/:user_id', comment.deleteSubComment);
 app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
-
 // app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/public/index.html'));
+//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 // });
- //hello
 
 
 
 
 
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`App running on port ${port}.`)
-})
 
-// app.listen(port, () => {
+
+// app.listen(process.env.PORT || port, () => {
 //   console.log(`App running on port ${port}.`)
 // })
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 
 module.exports = {

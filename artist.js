@@ -180,6 +180,32 @@ const checkUsername = async (request, response) => {
       response.status(200).json(usernameResult.rows)
 }
 
+const addPurchase = async (request, response) => {
+  const user_id = request.body.user_id;
+  const productIdentifier = request.body.productIdentifier;
+  try {
+      let purchase = await db.pool.query(
+            'INSERT INTO purchases (user_id, productIdentifier) VALUES ($1, $2) RETURNING *',
+            [user_id, productIdentifier])
+            response.status(200).json(purchase.rows)
+  } catch(error) { 
+    console.log(error) 
+  }
+}
+
+const getPurchase = async (request, response) => {
+  const user_id = request.params.user_id;
+  const productIdentifier = request.params.productIdentifier;
+  try {
+      let purchase = await db.pool.query(
+            'SELECT * FROM purchases WHERE user_id = $1 AND productIdentifier = $2',
+            [user_id, productIdentifier])
+            response.status(200).json(purchase.rows)
+  } catch(error) { 
+    console.log(error) 
+  }
+}
+
 
 module.exports = {
    getArtistByID,
@@ -193,5 +219,7 @@ module.exports = {
    getFollower,
    getUserInfo,
    updateUserInfo,
-   checkUsername
+   checkUsername,
+   addPurchase,
+   getPurchase
 }
