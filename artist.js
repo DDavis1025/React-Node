@@ -89,7 +89,6 @@ const upsertUserImage = (request, response) => {
     .then((res) => {
         if (res.rowCount > 0) {
           Promise.resolve().then(()=> {
-          let picture_path = res.rows[0].path
           var params = {  Bucket: info.BUCKET_NAME, Key: picture_path };
           indexJS.s3.deleteObject(params, function(err, data) {
           if (err) console.log(err, err.stack);  // error
