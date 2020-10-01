@@ -170,7 +170,7 @@ app.get('/verifyReceipt/:receipt/', receiptValidator.receiptValidator);
 app.get('/purchase/:user_id/:productIdentifier', artist.getPurchase);
 // app.get('/test/:id', apiCall.testGet);
 app.post('/follower', artist.addFollower);
-app.post('/upload', upload, artist.upsertUserImage);
+app.post('/userImageUpload', upload, artist.upsertUserImage);
 app.post('/comment', comment.addData)
 app.post('/sub_comment', comment.addSubComment)
 app.post('/addCommentLike', comment.addCommentLike)
