@@ -99,8 +99,10 @@ const upsertUserImage = (request, response) => {
           .then((res) => {
           response.status(200).send({ message: "Success: Updated Image" });
           console.log(`Success: Updated User Image + ${res.rows}`)
-       }).catch(error => console.log(error)
-       response.status(500).send({ message: error }));
+       }).catch((error) => {
+        response.status(500).send({ message: error });
+        console.log(error)
+        });
        })
         } else {
             db.pool.query(
@@ -109,11 +111,15 @@ const upsertUserImage = (request, response) => {
             .then((res) => {
             response.status(200).send({ message: "Success: Added Image" });
             console.log("Success: Added User Image" + JSON.stringify(request.body))
-          }).catch(error => console.log(error)
-          response.status(500).send({ message: error }));
+          }).catch((error) =>  {
+          response.status(500).send({ message: error });
+          console.log(error)
+        });
       }
-    }).catch(error => console.log(error)
-    response.status(500).send({ message: error }));
+    }).catch((error) => {
+      response.status(500).send({ message: error });
+      console.log(error)
+    });
     
 }
 
