@@ -80,8 +80,6 @@ const uploadImage = (request, response) => {
 
 const upsertUserImage = (request, response) => {
     const { user_id } = request.body;
-    console.log("request.body" + JSON.stringify(request.body))
-    console.log("request.file" + JSON.stringify(request.files))
     let picture_path = request.files.file[0].key
 
     db.pool.query('SELECT * FROM user_images WHERE user_id = $1', 
@@ -101,7 +99,8 @@ const upsertUserImage = (request, response) => {
           .then((res) => {
           response.status(200).send({ message: "Success: Updated Image" });
           console.log(`Success: Updated User Image + ${res.rows}`)
-       }).catch(error => console.log(error));
+       }).catch(error => console.log(error)
+       response.status(500).send({ message: error }));
        })
         } else {
             db.pool.query(
@@ -110,9 +109,11 @@ const upsertUserImage = (request, response) => {
             .then((res) => {
             response.status(200).send({ message: "Success: Added Image" });
             console.log("Success: Added User Image" + JSON.stringify(request.body))
-          }).catch(error => console.log(error));
+          }).catch(error => console.log(error)
+          response.status(500).send({ message: error }));
       }
-    }).catch(error => console.log(error));
+    }).catch(error => console.log(error)
+    response.status(500).send({ message: error }));
     
 }
 
