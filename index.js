@@ -219,14 +219,14 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`App running on port ${port}.`)
-})
-
-
-// app.listen(port, () => {
+// app.listen(process.env.PORT || port, () => {
 //   console.log(`App running on port ${port}.`)
 // })
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 
 module.exports = {
