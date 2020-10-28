@@ -87,10 +87,10 @@ function UpdatePaymentInfo() {
   useEffect( () => {
   	async function fetchData() {
   	try {
-  	const response = await axios.get(`http://localhost:8000/get-premium-user/${auth0Context.user.sub}`);
+  	const response = await axios.get(`https://www.hiphopvolume.com/get-premium-user/${auth0Context.user.sub}`);
   	console.log(response)
     setCustomerID(response.data[0].customer_id)
-    const res = await axios.get('http://localhost:8000/card-wallet', {'customer_id': customer_id});
+    const res = await axios.get('https://www.hiphopvolume.com/card-wallet', {'customer_id': customer_id});
     setClientSecret(res.data)
     console.log(JSON.stringify(res.data) + "res")
 
@@ -135,9 +135,9 @@ function UpdatePaymentInfo() {
         // result.setupIntent.payment_method to your server to save the
         // card to a Customer
     	console.log(result)
-    	const attachedPaymentResponse = await axios.post('http://localhost:8000/attach-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer_id});
+    	const attachedPaymentResponse = await axios.post('https://www.hiphopvolume.com/attach-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer_id});
     	console.log(attachedPaymentResponse)
-  	    const defaultPaymentResponse = await axios.post('http://localhost:8000/update-default-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer_id, 'user_id': auth0Context.user.sub });
+  	    const defaultPaymentResponse = await axios.post('https://www.hiphopvolume.com/update-default-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer_id, 'user_id': auth0Context.user.sub });
         console.log(defaultPaymentResponse)
         setLoading(false)
         alert("Success: You changed your default payment method");

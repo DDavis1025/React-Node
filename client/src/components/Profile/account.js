@@ -42,7 +42,7 @@ function Account() {
   useEffect( () => {
   	async function fetchData() {
   	try {
-  	const response = await axios.get(`http://localhost:8000/get-premium-user/${auth0Context.user.sub}`);
+  	const response = await axios.get(`https://www.hiphopvolume.com/get-premium-user/${auth0Context.user.sub}`);
     console.log(response)
     if(response.status == 200 && response.data[0] != undefined) {
      setPaymentMethod(response.data[0].paymentmethodid)
@@ -50,12 +50,12 @@ function Account() {
      setSub(response.data[0].id)
      setCustomer(response.data[0].customer_id)
      if (response.data[0].paymentmethodid != undefined) {
-     const payment_method_response = await axios.get('http://localhost:8000/retrieve-customer-payment-method', { params: { payment_method: response.data[0].paymentmethodid } });
+     const payment_method_response = await axios.get('https://www.hiphopvolume.com/retrieve-customer-payment-method', { params: { payment_method: response.data[0].paymentmethodid } });
      setCard(payment_method_response.data.card)
-     const res = await axios.get('http://localhost:8000/retrieve-subscription', { params: { 'sub_id': response.data[0].id } });
+     const res = await axios.get('https://www.hiphopvolume.com/retrieve-subscription', { params: { 'sub_id': response.data[0].id } });
      setStatus(res.data.status)
      } else {
-      const res = await axios.get('http://localhost:8000/retrieve-subscription', { params: { 'sub_id': response.data[0].id } });
+      const res = await axios.get('https://www.hiphopvolume.com/retrieve-subscription', { params: { 'sub_id': response.data[0].id } });
       setStatus(res.data.status)
       console.log(JSON.stringify(res.data.status) + "sub res")
      }
@@ -80,7 +80,7 @@ function Account() {
         {
           label: 'Now',
           onClick: async () => { 
-            const cancelSubcriptionNow = await axios.post('http://localhost:8000/cancel-subscription', {'sub_id': sub, 'customer_id': customer, 'user_id': auth0Context.user.sub});
+            const cancelSubcriptionNow = await axios.post('https://www.hiphopvolume.com/cancel-subscription', {'sub_id': sub, 'customer_id': customer, 'user_id': auth0Context.user.sub});
             alert('Your subscription has been canceled') 
             window.location.reload(false);
           }
@@ -88,7 +88,7 @@ function Account() {
         {
           label: 'End of Period',
           onClick: async () => { 
-            const cancelSubcriptionPeriodEnd = await axios.post('http://localhost:8000/cancel-subscription-period-end', {'sub_id': sub});
+            const cancelSubcriptionPeriodEnd = await axios.post('https://www.hiphopvolume.com/cancel-subscription-period-end', {'sub_id': sub});
             alert('Okay. Your subscription will be canceled at the end of this period') }
         }
       ]
@@ -102,7 +102,7 @@ function Account() {
    async function detachPaymentMethod() {
     try {
     if (window.confirm('Are you sure you want to detach this card as your payment method')) {
-      const detachPaymentMethod = await axios.post('http://localhost:8000/detach-payment-method', {'payment_method': payment_method, 'user_id': auth0Context.user.sub, 'customer_id': customer});
+      const detachPaymentMethod = await axios.post('https://www.hiphopvolume.com/detach-payment-method', {'payment_method': payment_method, 'user_id': auth0Context.user.sub, 'customer_id': customer});
       alert('Okay. Your payment method was detached');
       window.location.reload(false);
   // Save it!

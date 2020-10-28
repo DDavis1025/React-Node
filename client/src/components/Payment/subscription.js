@@ -125,7 +125,7 @@ function Subscription() {
 
     try {
       console.log("send request + handleSubmitSub")
-      const res = await axios.post('http://localhost:8000/sub', {'payment_method': result.paymentMethod.id, 'email': email, 'user_id': auth0Context.user.sub});
+      const res = await axios.post('https://www.hiphopvolume.com/sub', {'payment_method': result.paymentMethod.id, 'email': email, 'user_id': auth0Context.user.sub});
       // eslint-disable-next-line camelcase
       console.log(res + "res")
       console.log(status + "status")
@@ -162,7 +162,7 @@ function Subscription() {
       setSubmitLoading(true)
 
       console.log("send request + handleSubmitSubDefault")
-      const res = await axios.post('http://localhost:8000/sub-existing-user', {'customer': customer, 'user_id': auth0Context.user.sub});
+      const res = await axios.post('https://www.hiphopvolume.com/sub-existing-user', {'customer': customer, 'user_id': auth0Context.user.sub});
       // eslint-disable-next-line camelcase
       console.log(res + "res")
       console.log(status + "status")
@@ -197,7 +197,7 @@ function Subscription() {
     console.log("send request handleSubmitSubExistingCus" + payment_method)
     try {
       setSubmitLoading(true)
-      const setupIntentRes = await axios.get('http://localhost:8000/card-wallet', {'customer_id': customer});
+      const setupIntentRes = await axios.get('https://www.hiphopvolume.com/card-wallet', {'customer_id': customer});
       console.log("send request handleSubmitSubExistingCus" + payment_method)
 
       const result = await stripe.confirmCardSetup(setupIntentRes.data, {
@@ -217,12 +217,12 @@ function Subscription() {
       // The setup has succeeded. Display a success message and send
         // result.setupIntent.payment_method to your server to save the
         // card to a Customer
-      const attachedPaymentResponse = await axios.post('http://localhost:8000/attach-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer});
+      const attachedPaymentResponse = await axios.post('https://www.hiphopvolume.com/attach-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer});
 
-      const defaultPaymentResponse = await axios.post('http://localhost:8000/update-default-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer, 'user_id': auth0Context.user.sub });
+      const defaultPaymentResponse = await axios.post('https://www.hiphopvolume.com/update-default-payment-method', {'payment_method': result.setupIntent.payment_method, 'customer_id': customer, 'user_id': auth0Context.user.sub });
 
 
-      const res = await axios.post('http://localhost:8000/sub-existing-user', {'customer': customer, 'user_id': auth0Context.user.sub});
+      const res = await axios.post('https://www.hiphopvolume.com/sub-existing-user', {'customer': customer, 'user_id': auth0Context.user.sub});
       // eslint-disable-next-line camelcase
       const {client_secret, status} = res.data;
 
@@ -265,7 +265,7 @@ function Subscription() {
   const getUserSubscription = async (e)=> {
     console.log('getUserSubscription')
     const userPaymentMethodResponse = 
-    await axios.get('http://localhost:8000/get-user-payment-method', 
+    await axios.get('https://www.hiphopvolume.com/get-user-payment-method', 
       { params: { user_id: auth0Context.user.sub } });
     console.log(userPaymentMethodResponse)
     if(userPaymentMethodResponse.status == 200 && userPaymentMethodResponse.data.payment_method == true) {

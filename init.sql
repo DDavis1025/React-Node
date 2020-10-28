@@ -103,7 +103,7 @@ CREATE TABLE public.fields (
 -- ALTER TABLE public.fields OWNER TO me;
 
 --
--- Name: file; Type: TABLE; Schema: public; Owner: dillondavis
+-- Name: ; Type: TABLE; Schema: public; Owner: dillondavis
 --
 
 CREATE TABLE public.file (
@@ -297,6 +297,15 @@ CREATE TABLE public.video_thumbnails (
     size integer,
     id uuid,
     author text
+);
+
+CREATE TABLE public.subscriptions (
+    user_id text,
+    plan text,
+    id text,
+    paymentmethodid text,
+    customer_id text,
+    status text
 );
 
 

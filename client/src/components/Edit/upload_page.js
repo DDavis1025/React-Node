@@ -54,7 +54,7 @@ class UploadPage extends Component {
   fetchData = async () => {
     try {
      let user_id = this.context.user.sub;
-     const response = await axios.get(`http://localhost:8000/get-premium-user/${user_id}`);
+     const response = await axios.get(`https://www.hiphopvolume.com/get-premium-user/${user_id}`);
      console.log(response)
      if (response.status == 200) {
      if (response.data[0] && response.data[0].status == 'active') {
