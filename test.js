@@ -37,8 +37,8 @@ let image;
         Array.from(album.files).forEach((song1, index) => {
          const song2 = request.files.songs[index];
          dbQueryPromises.push(db.pool.query(
-          'INSERT INTO songs (id, name, index, "path", album_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (album_id, index) DO NOTHING RETURNING *', 
-          [uuidv4(), song1.name, song1.index, song2.key, album_id]))
+          'INSERT INTO songs (id, name, index, "path", size, album_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (album_id, index) DO NOTHING RETURNING *', 
+          [uuidv4(), song1.name, song1.index, song2.key, song2.size, album_id, album.user_id]))
        });      
         // console.log(album_files);
         
@@ -50,8 +50,8 @@ let image;
          console.log(res.rows);
        }).then(() => {
         db.pool.query(
-        'INSERT INTO file ("path", album_id) VALUES ($1, $2) RETURNING *',
-        [request.files.file[0].key, album_id]);
+        'INSERT INTO file ("path", size, album_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, album_id, album.user_id]);
       }).then((res) => {
         response.status(200).send({ message: "Success" });
          // console.log("INSERT INTO file(images) " + request.body.data);
@@ -125,8 +125,8 @@ let insert_result;
           });
        }
         db.pool.query(
-        'UPDATE file SET image_name = $1, "path" = $2 WHERE album_id = $3',
-        [request.files.file[0].filename, request.files.file[0].key, id]);
+        'UPDATE file SET image_name = $1, "path" = $2, size = $3 WHERE album_id = $4',
+        [request.files.file[0].filename, request.files.file[0].key, request.files.file[0].size, id]);
        }    
       }).then((result) => {
          response.status(200).send({ message: "Success updating" });

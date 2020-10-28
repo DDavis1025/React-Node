@@ -66,8 +66,8 @@ const uploadImage = (request, response) => {
     console.log("request.body" + JSON.stringify(request.body))
     console.log("request.file" + JSON.stringify(request.files))
     db.pool.query(
-        'INSERT INTO user_images (user_id, image_name, "path") VALUES ($1, $2, $3) RETURNING *',
-        [user_id, request.files.filename, request.files.key])
+        'INSERT INTO user_images (user_id, image_name, "path", size) VALUES ($1, $2, $3, $4) RETURNING *',
+        [user_id, request.files.filename, request.files.key, request.files.size])
       .then((res) => {
         response.status(200).send({ message: "Success: Uploaded Image" });
         console.log(`Success: Uploaded User Image + ${res.rows}`)
@@ -213,6 +213,58 @@ const getPurchase = async (request, response) => {
 }
 
 
+const getDataUsage = async (request, response) => {
+  const user_id = request.params.user_id;
+  try {
+      let fileSize = await db.pool.query(
+            'SELECT size FROM file WHERE user_id = $1',
+            [user_id])
+      let songsSize = await db.pool.query(
+            'SELECT size FROM songs WHERE user_id = $1',
+            [user_id])
+      let trackSize = await db.pool.query(
+            'SELECT size FROM track WHERE author = $1',
+            [user_id])
+      let trackImagesSize = await db.pool.query(
+            'SELECT size FROM track_images WHERE author = $1',
+            [user_id])
+      let userImagesSize = await db.pool.query(
+            'SELECT size FROM user_images WHERE user_id = $1',
+            [user_id])
+      let videoSize = await db.pool.query(
+            'SELECT size FROM video WHERE author = $1',
+            [user_id])
+      let videoImagesSize = await db.pool.query(
+            'SELECT size FROM video_thumbnails WHERE author = $1',
+            [user_id])
+      let all = await fileSize.rows.concat(songsSize.rows, trackSize.rows, trackImagesSize.rows,
+       userImagesSize.rows, videoSize.rows, videoImagesSize.rows);
+      let size = 0;
+      for (x in all) {
+        size += all[x].size
+        console.log(all[x].size)
+      }
+      size *= 0.000000001
+      let obj = {};
+      obj.size = size;
+      if (size >= 80) {
+        obj.overPremium = true;
+      } else {
+        obj.overPremium = false;
+      } 
+      if (size >= 0.3) {
+        obj.overFree = true;
+      } else {
+        obj.overFree = false;
+      }
+      response.status(200).json(obj)      
+
+  } catch(error) { 
+    console.log(error) 
+  }
+}
+
+
 module.exports = {
    getArtistByID,
    addFollower,
@@ -227,5 +279,6 @@ module.exports = {
    updateUserInfo,
    checkUsername,
    addPurchase,
-   getPurchase
+   getPurchase,
+   getDataUsage
 }

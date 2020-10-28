@@ -12,7 +12,8 @@ const query = require('./query');
 const video = require('./video');
 const track = require('./track');
 const comment = require('./comments');
-const notification = require('./notifications')
+const notification = require('./notifications');
+const payment = require('./payment');
 const port = 8000;
 var multer = require('multer');
 var jwt = require('express-jwt');
@@ -168,6 +169,14 @@ app.get('/getUserInfo/:user_id/', artist.getUserInfo);
 app.get('/getUsername/:username/', artist.checkUsername);
 app.get('/verifyReceipt/:receipt/', receiptValidator.receiptValidator);
 app.get('/purchase/:user_id/:productIdentifier', artist.getPurchase);
+app.get('/dataUsage/:user_id', artist.getDataUsage);
+app.get('/get-premium-user/:user_id', payment.getUserPremium);
+app.get('/card-wallet', payment.createSetupIntent);
+app.get('/list-payment-methods', payment.listPaymentMethods);
+app.get('/retrieve-customer-payment-method', payment.retrievePaymentMethod);
+app.get('/retrieve-customer', payment.retrieveCustomer);
+app.get('/retrieve-subscription', payment.retrieveSubscription);
+app.get('/get-user-payment-method', payment.getAuthUserPaymentMethod);
 // app.get('/test/:id', apiCall.testGet);
 app.post('/follower', artist.addFollower);
 app.post('/userImageUpload', upload, artist.upsertUserImage);
@@ -180,6 +189,15 @@ app.post('/postLike/', query.addPostLike);
 app.post('/updateUserInfo/', artist.updateUserInfo);
 app.post('/verifyReceipt', receiptValidator.receiptValidator);
 app.post('/purchase', artist.addPurchase);
+app.post('/payment', payment.stripePayment);
+app.post('/sub', payment.subscription);
+app.post('/sub-existing-user', payment.subscriptionDefaultPayment);
+app.post('/update-default-payment-method', payment.updateDefaultPaymentMethod);
+app.post('/attach-payment-method', payment.attachPaymentMethodToCustomer);
+app.post('/cancel-subscription', payment.cancelSubscription);
+app.post('/cancel-subscription-period-end', payment.cancelSubscriptionPeriodEnd);
+app.post('/webhooks', payment.webhooks);
+app.post('/detach-payment-method', payment.detachDefaultPaymentMethod);
 
 // app.get('/albums/:id/songs', apiCall.selectSongs);
 // app.post('/albums/', apiCall.addData);
@@ -207,6 +225,7 @@ app.delete('/deleteCommentLike/:comment_id/:user_id', comment.deleteCommentLike)
 app.delete('/deleteComment/:comment_id/:user_id', comment.deleteComment);
 app.delete('/deleteSubComment/:comment_id/:user_id', comment.deleteSubComment);
 app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
+app.delete('/cancel-subscription', payment.cancelSubscription);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));

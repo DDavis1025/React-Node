@@ -118,12 +118,15 @@ handleClick = event => {
  
  var file = event.target.files[0];
 
+
  
     const fileReader = new FileReader();
 
       fileReader.onerror = (error) => {
         console.log(error);
       }
+      // console.log("video duration before" + video.duration)
+      
 
       fileReader.onload = (e) => {
         this.setState({selectedVid: file})
@@ -159,6 +162,7 @@ replaceClick = event => {
         this.setState({ selectedVid: file })
         this.setState({ fileContent: e.target.result})
         this.setState({ isLoading: false })
+
       }
  
       fileReader.readAsDataURL(file);

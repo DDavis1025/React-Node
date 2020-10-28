@@ -29,13 +29,14 @@ class AddTrack extends Component {
     this.replaceInput = this.replaceInput.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
     this.onClick = this.onClick.bind(this);
+    // this.compress = this.compress.bind(this);
     this.onChange = this.onChange.bind(this);
     this.fieldChange = this.fieldChange.bind(this);
     this.save = this.save.bind(this);
     this.audioRef = React.createRef();
+    // this.canvasRef = React.createRef();
     // this.handleAuthentication = this.handleAuthentication.bind(this);
-    
-    
+    // this.dataURItoBlob = this.dataURItoBlob.bind(this);
     this.replaceInputRef = React.createRef();
     this.fileRef = React.createRef();
     this.inputRef = React.createRef();
@@ -68,9 +69,10 @@ class AddTrack extends Component {
     this.setState({
       beforeImageSave: URL.createObjectURL(event.target.files[0]),
       file: event.target.files[0],
-      loaded: 0,
+      loaded: 0
     })
   }
+
 
 
   componentDidMount() {
@@ -80,6 +82,56 @@ class AddTrack extends Component {
     console.log(this.props.myHookValue);
    
   }
+
+// compress(e) {
+//     const width = 300;
+//     const height = 300;
+//     let file = e.target.files[0];
+//     const reader = new FileReader();
+//     reader.readAsDataURL(e.target.files[0]);
+//     reader.onload = event => {
+//         const img = new Image();
+//         img.src = event.target.result;
+//         img.onload = () => {
+//                 if (img.width > 300 && img.height > 300) {
+//                 const canvas = this.canvasRef.current;
+//                 canvas.width = width;
+//                 canvas.height = height;
+//                 const ctx = canvas.getContext('2d');
+//                 // img.width and img.height will contain the original dimensions
+//                 ctx.drawImage(img, 0, 0, width, height);
+//                 var blob = this.dataURItoBlob(canvas.toDataURL());
+//                 this.setState({ file: blob })
+//   } else {
+//     this.setState({
+//       file: file
+//     })
+//   }
+//             reader.onerror = error => console.log(error);
+//     };
+//   }
+// }
+
+// dataURItoBlob(dataURI) {
+//     // convert base64/URLEncoded data component to raw binary data held in a string
+//     var byteString;
+//     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+//         byteString = atob(dataURI.split(',')[1]);
+//      } else {
+//         byteString = decodeURI(dataURI.split(',')[1]);
+//      }
+
+//     // separate out the mime component
+//     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+//     // write the bytes of the string to a typed array
+//     var ia = new Uint8Array(byteString.length);
+//     for (var i = 0; i < byteString.length; i++) {
+//         ia[i] = byteString.charCodeAt(i);
+//     }
+
+//     return new Blob([ia], {type:mimeString});
+// }
 
 fieldChange (event) {
    const { name, value } = event.target;
@@ -96,7 +148,9 @@ handleClick = event => {
   this.setState({ isLoading: true });
   }
  
- var file = event.target.files[0];
+    var file = event.target.files[0];
+
+    console.log("file size" + file.size)
 
  
     const fileReader = new FileReader();

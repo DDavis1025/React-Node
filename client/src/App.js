@@ -25,7 +25,18 @@ import AddTrack from "./components/addTrack";
 import EditTrack from "./components/Edit/edit-track";
 import UploadPage from "./components/Edit/upload_page";
 import ProfileVideos from "./components/Profile/video";
-import ProfileTracks from "./components/Profile/tracks"
+import ProfileTracks from "./components/Profile/tracks";
+import Payment from "./components/Payment/payment";
+import Subscription from "./components/Payment/subscription";
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import Premium from "./components/Payment/premium";
+import Billing from "./components/Payment/billing";
+import UpdatePaymentInfo from "./components/Payment/updatePayment";
+import Account from "./components/Profile/account";
+
+
+const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
 
 function App() {
@@ -68,7 +79,18 @@ function App() {
       <Route path="/uploads/" component={UploadPage}/>
       <Route path="/videos/" component={ProfileVideos}/>
       <Route path="/tracks/" component={ProfileTracks}/>
+      <Route path="/premium" component={Premium}/>
+      <Route path="/billing" component={Billing}/>
+      <Route path="/payment" component={Payment}/>
 
+      <Route path="/account" component={Account}/>
+
+      <Elements stripe={stripePromise}>
+      <Route path="/get-premium" component={Subscription}/>
+      </Elements>
+      <Elements stripe={stripePromise}>
+      <Route path="/update-payment" component={UpdatePaymentInfo}/>
+      </Elements>
       </div>
       )}
       </Router>

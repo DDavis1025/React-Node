@@ -111,7 +111,8 @@ CREATE TABLE public.file (
     type character varying(100),
     size integer,
     path character varying(255),
-    album_id uuid NOT NULL
+    album_id uuid NOT NULL,
+    user_id integer
 );
 
 
@@ -162,7 +163,8 @@ CREATE TABLE public.post_likes (
 
 CREATE TABLE public.purchases (
     user_id text,
-    productidentifier text
+    productidentifier text,
+    time_added DATE DEFAULT CURRENT_DATE
 );
 
 
@@ -178,7 +180,9 @@ CREATE TABLE public.songs (
     index integer,
     album_id uuid NOT NULL,
     id uuid NOT NULL,
-    path character varying(255)
+    path character varying(255),
+    size integer,
+    user_id integer
 );
 
 
@@ -208,6 +212,7 @@ CREATE TABLE public.sub_comments (
 
 CREATE TABLE public.track (
     path text,
+    size integer,
     id uuid,
     author text
 );
@@ -221,6 +226,7 @@ CREATE TABLE public.track (
 
 CREATE TABLE public.track_images (
     path text,
+    size integer,
     id uuid,
     author text
 );
@@ -274,6 +280,7 @@ CREATE TABLE public.user_info (
 
 CREATE TABLE public.video (
     path text,
+    size integer,
     id uuid,
     author text
 );
@@ -287,6 +294,7 @@ CREATE TABLE public.video (
 
 CREATE TABLE public.video_thumbnails (
     path text,
+    size integer,
     id uuid,
     author text
 );

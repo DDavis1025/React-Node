@@ -22,14 +22,14 @@ let video_id;
       
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO video_thumbnails ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
-        [request.files.file[0].key, video_id, author_id]);
+        'INSERT INTO video_thumbnails ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, video_id, author_id]);
   }).then(results => {
          console.log(results.rows)
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO video ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
-        [request.files.video[0].key, video_id, author_id]);
+        'INSERT INTO video ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
+        [request.files.video[0].key, request.files.video[0].size, video_id, author_id]);
   }).then(results => {
   	     response.status(200).send({ message: "Success: Added video" });
          console.log(results.rows)
@@ -89,8 +89,8 @@ const updateVideoByID = (request, response) => {
           });
          	// fs.unlinkSync(path.join(__dirname, result.rows[0].path))
          	db.pool.query(
-           'UPDATE video_thumbnails SET "path" = $1 WHERE id = $2', 
-           [request.files.file[0].key, id])
+           'UPDATE video_thumbnails SET "path" = $1, size = $2 WHERE id = $3', 
+           [request.files.file[0].key, request.files.file[0].size, id])
          }
             response.status(200).send({ message: "Success: PUT request successful" });
          }).catch((err) => {

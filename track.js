@@ -20,12 +20,12 @@ let track_id;
       
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO track ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
-        [request.files.track[0].key, track_id, author_id]);
+        'INSERT INTO track ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
+        [request.files.track[0].key, request.files.track[0].size, track_id, author_id]);
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO track_images ("path", id, author) VALUES ($1, $2, $3) RETURNING *',
-        [request.files.file[0].key, track_id, author_id]);
+        'INSERT INTO track_images ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, track_id, author_id]);
   }).then(results => {
   }).then(results => {
   	     response.status(200).send({ message: "Success: Added track" });
@@ -88,8 +88,8 @@ const updateTrackByID = (request, response) => {
           });
           // fs.unlinkSync(path.join(__dirname, result.rows[0].path))
           db.pool.query(
-           'UPDATE track_images SET "path" = $1 WHERE id = $2', 
-            [request.files.file[0].key, id])
+           'UPDATE track_images SET "path" = $1, size = $2 WHERE id = $3', 
+            [request.files.file[0].key, request.files.file[0].size, id])
         }
       }).then(()=> {
           response.status(200).send({ message: "Success: PUT request successful" });

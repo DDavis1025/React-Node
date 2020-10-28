@@ -19,6 +19,16 @@ code {
 	max-width: 992px;
 	margin: auto;
 }*/
+.progress {
+    width: 500px;
+    margin: auto;
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+
 
 
 
@@ -53,6 +63,17 @@ button.btn.btn-secondary.btn-lg {
     color: #fff !important;
     background-color: #28a745 !important;
     border-color: #28a745;
+}
+
+.premiumButton {
+  background-color: green !important;
+}
+.premiumButton:hover {
+    background-color: green !important;
+}
+
+.makeStyles-ulClass-6 {
+    margin-left: -19px;
 }
 
 
