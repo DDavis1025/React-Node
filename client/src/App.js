@@ -34,6 +34,7 @@ import Premium from "./components/Payment/premium";
 import Billing from "./components/Payment/billing";
 import UpdatePaymentInfo from "./components/Payment/updatePayment";
 import Account from "./components/Profile/account";
+import PrivacyPolicy from "./components/Terms/privacy-policy"
 
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
@@ -52,6 +53,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
       <Router history={history}>
+      <Route path="/privacy-policy" component={PrivacyPolicy}/>
       <NavBar2 />
       <Navbar/>
       {isAuthenticated && (

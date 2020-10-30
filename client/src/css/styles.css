@@ -103,12 +103,39 @@ body {
   width: 70%;
 }
 
+.sidenav-footer {
+   position: absolute;
+   bottom: 20px;
+   width: 80%;
+   left: 10px;
+}
+
+.sidenav-footer li {
+  /*padding: 6px 8px 6px 16px;*/
+  text-decoration: underline;
+  font-size: 14px;
+  margin: 20px 0px 20px 0px;
+  color: lightgray;
+  display: block;
+  width: 100%;
+}
+
 a.sidenav-li {
     color: lightgray;
 }
 
 a.sidenav-li:hover {
     color: darkgray;
+}
+
+a.sidenav-footer-li {
+    color: lightgray;
+    text-decoration: underline;
+}
+
+a.sidenav-footer-li:hover {
+    color: darkgray;
+    text-decoration: underline;
 }
 
 

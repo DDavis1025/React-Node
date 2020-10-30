@@ -13,6 +13,13 @@ const Navbar = (props) => (
 	<li><NavLink className="sidenav-li" activeClassName="activate" to="/account">Account</NavLink></li>
 	<li><NavLink className="sidenav-li" activeClassName="activate" to="/premium">Premium</NavLink></li>
 	</ul>
+
+	<div className="sidenav-footer">
+	<ul>
+	<li><a className="sidenav-footer-li" href="/privacy-policy">Privacy Policy</a></li>
+	</ul>
+	</div>
+
   </div>
 
 
