@@ -109,7 +109,7 @@ app.use(function(req, res, next) {
 
 
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 // app.get('/', (request, response) => {
@@ -231,9 +231,9 @@ app.delete('/cancel-subscription', payment.cancelSubscription);
 app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
 
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 
@@ -242,14 +242,14 @@ app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
 
 
 
-// app.listen(process.env.PORT || port, () => {
-//   console.log(`App running on port ${port}.`)
-// })
-
-
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`App running on port ${port}.`)
 })
+
+
+// app.listen(port, () => {
+//   console.log(`App running on port ${port}.`)
+// })
 
 
 module.exports = {
