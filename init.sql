@@ -112,7 +112,7 @@ CREATE TABLE public.file (
     size integer,
     path character varying(255),
     album_id uuid NOT NULL,
-    user_id integer
+    user_id text
 );
 
 
@@ -182,7 +182,7 @@ CREATE TABLE public.songs (
     id uuid NOT NULL,
     path character varying(255),
     size integer,
-    user_id integer
+    user_id text
 );
 
 
