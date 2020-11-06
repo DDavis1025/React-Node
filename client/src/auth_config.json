@@ -1,4 +1,7 @@
 {
   "domain": "dev-owihjaep.auth0.com",
-  "clientId": "z4B9Lh4mlL5pd4F8zJwtpEeLDFd3BaJX"
+  "clientId": "z4B9Lh4mlL5pd4F8zJwtpEeLDFd3BaJX",
+  "audience": "https://dev-owihjaep.auth0.com/api/v2/",
+  "scope": "read:current_user delete:users delete:current_user"
+
 }

@@ -34,7 +34,7 @@ import Premium from "./components/Payment/premium";
 import Billing from "./components/Payment/billing";
 import UpdatePaymentInfo from "./components/Payment/updatePayment";
 import Account from "./components/Profile/account";
-import PrivacyPolicy from "./components/Terms/privacy-policy"
+import PrivacyPolicy from "./components/Terms/privacy-policy";
 
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
@@ -86,7 +86,6 @@ function App() {
       <Route path="/payment" component={Payment}/>
 
       <Route path="/account" component={Account}/>
-
       <Elements stripe={stripePromise}>
       <Route path="/get-premium" component={Subscription}/>
       </Elements>

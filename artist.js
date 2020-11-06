@@ -3,6 +3,8 @@ const fs = require('fs');
 var path = require('path');
 var indexJS = require('./index');
 var info = require('./info');
+var axios = require("axios").default;
+require('dotenv').config();
 
 const getArtistByID = (request, response) => {
 	const id = request.params.id;
@@ -264,6 +266,105 @@ const getDataUsage = async (request, response) => {
   }
 }
 
+const deleteAccountData = async (request, response) => {
+  const user_id = request.params.user_id;
+
+      let deleteFromAlbums = await db.pool.query(
+            'DELETE FROM albums WHERE author = $1',
+            [user_id])
+      let deleteFromCommentLikes = await db.pool.query(
+            'DELETE FROM comment_likes WHERE user_id = $1',
+            [user_id])
+      let deleteFromFields = await db.pool.query(
+            'DELETE FROM fields WHERE author = $1',
+            [user_id])
+      let deleteFromFile = await db.pool.query(
+            'DELETE FROM file WHERE user_id = $1',
+            [user_id])
+      let deleteFromNotifications = await db.pool.query(
+            'DELETE FROM notifications WHERE user_id = $1 AND supporter_id = $1',
+            [user_id])
+      let deleteFromPostLikes = await db.pool.query(
+            'DELETE FROM post_likes WHERE user_id = $1',
+            [user_id])
+      let deleteFromPurchases = await db.pool.query(
+            'DELETE FROM purchases WHERE user_id = $1',
+            [user_id])
+      let deleteFromSongs = await db.pool.query(
+            'DELETE FROM songs WHERE user_id = $1',
+            [user_id])
+      let deleteFromSubComments = await db.pool.query(
+            'DELETE FROM sub_comments WHERE user_id = $1',
+            [user_id])
+      let deleteFromTrack = await db.pool.query(
+            'DELETE FROM track WHERE author = $1',
+            [user_id])
+      let deleteFromTrackImages = await db.pool.query(
+            'DELETE FROM track_images WHERE author = $1',
+            [user_id])
+      let deleteFromUserFollowers = await db.pool.query(
+            'DELETE FROM user_followers WHERE user_id = $1',
+            [user_id])
+      let deleteFromUserImages = await db.pool.query(
+            'DELETE FROM user_images WHERE user_id = $1',
+            [user_id])
+      let deleteFromUserInfo = await db.pool.query(
+            'DELETE FROM user_info WHERE author = $1',
+            [user_id])
+      let deleteFromVideo = await db.pool.query(
+            'DELETE FROM video WHERE author = $1',
+            [user_id])
+      let deleteFromVideoThumbnails = await db.pool.query(
+            'DELETE FROM video_thumbnails WHERE author = $1',
+            [user_id])
+      let deleteFromSubscriptions = await db.pool.query(
+            'DELETE FROM subscriptions WHERE user_id = $1',
+            [user_id])
+
+      response.status(200).send({ message: "Success Deleting Account" });
+    
+}
+
+
+const deleteAuth0Account = async (request, response) => {
+  const user_id = request.params.user_id;
+
+  try {
+
+  var options = {
+  method: 'POST',
+  url: 'https://dev-owihjaep.auth0.com/oauth/token',
+  headers: {'content-type': 'application/json'},
+  data: {
+    grant_type: 'client_credentials',
+    client_id: 'ryuREoZEzPeJs57fsOK6Qt2hTsIv1a00',
+    client_secret: process.env.AUTH0_CLIENT_SECRET,
+    audience: 'https://dev-owihjaep.auth0.com/api/v2/'
+   }
+  };
+
+
+  let accessTokenResponse = await axios.request(options)
+
+  var deleteAccountOptions = {
+  method: 'DELETE',
+  url: `https://dev-owihjaep.auth0.com/api/v2/users/${user_id}`,
+  headers: {'content-type': 'application/json', authorization: 'Bearer ' + accessTokenResponse.data.access_token}
+  };
+
+  let dltResponse = await axios.request(deleteAccountOptions)
+
+
+  response.status(200).send({ message: "Success Deleting Auth0 Account" });
+} catch(err) {
+  console.log(err)
+}
+
+
+
+    
+}
+
 
 module.exports = {
    getArtistByID,
@@ -280,5 +381,7 @@ module.exports = {
    checkUsername,
    addPurchase,
    getPurchase,
-   getDataUsage
+   getDataUsage,
+   deleteAccountData,
+   deleteAuth0Account
 }

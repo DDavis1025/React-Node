@@ -39,9 +39,15 @@ function Account() {
 
   const history = useHistory();
 
+  const { logout } = useAuth0();
+
   useEffect( () => {
   	async function fetchData() {
   	try {
+
+
+
+
   	const response = await axios.get(`https://www.hiphopvolume.com/get-premium-user/${auth0Context.user.sub}`);
     console.log(response)
     if(response.status == 200 && response.data[0] != undefined) {
@@ -115,6 +121,55 @@ function Account() {
         console.log(err)
     }
    }
+  
+   async function deleteAccount() {
+    try {
+    if (status == 'active') {
+    if (window.confirm('Deleting your account will cancel your subscription')) {
+     deleteAccountFunction()
+  // Save it!
+    } else {
+  // Do nothing!
+    console.log('Cancel was clicked');
+    } 
+  } else {
+    if (window.confirm('Are you sure you want to delete your account?')) {
+     deleteAccountFunction()
+  // Save it!
+    } else {
+     
+    }
+  }
+  // Do nothing!
+    } catch(err) {
+        console.log(err)
+    }
+   }
+
+  async function deleteAccountFunction() {
+    try {
+
+      const deleteAuth0Account = await axios.post(`http://localhost:8000/deleteAuth0Account/${auth0Context.user.sub}`);
+
+      console.log("deleteAuth0Account" + deleteAuth0Account)
+
+      const deleteAccountData = await axios.delete(`http://localhost:8000/deleteAccountData/${auth0Context.user.sub}`);
+
+      console.log("deleteAccountData" + deleteAccountData)
+
+
+
+
+      alert('Okay. Your account was deleted');
+
+      logout()
+
+      history.push('/');
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
 
   return (
     <div>
@@ -164,6 +219,20 @@ function Account() {
           </Link>
           </div>
           )}
+        </Card>
+      </Col>
+      </Row>     
+    </div>
+    <div>
+     <Row>
+      <Col style={{position: 'relative',
+      left: '40px', minWidth:"340px", maxWidth:"500px", marginTop:"20px", marginBottom: "20px"}}>
+        <Card body>
+        <div>
+          <CardTitle><h3><b>Delete Account</b></h3></CardTitle>
+          <CardText></CardText>
+          <Button onClick={deleteAccount}>Delete</Button>
+          </div>
         </Card>
       </Col>
       </Row>     

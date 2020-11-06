@@ -109,7 +109,7 @@ app.use(function(req, res, next) {
 
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 // app.get('/', (request, response) => {
@@ -198,6 +198,7 @@ app.post('/cancel-subscription', payment.cancelSubscription);
 app.post('/cancel-subscription-period-end', payment.cancelSubscriptionPeriodEnd);
 app.post('/webhooks', payment.webhooks);
 app.post('/detach-payment-method', payment.detachDefaultPaymentMethod);
+app.post('/deleteAuth0Account/:user_id', artist.deleteAuth0Account);
 
 // app.get('/albums/:id/songs', apiCall.selectSongs);
 // app.post('/albums/', apiCall.addData);
@@ -213,6 +214,7 @@ app.put('/track/:id', upload, track.updateTrackByID);
 app.post('/albums', upload, apiCall.addData);
 app.post('/video', upload, video.addData);
 app.post('/track', upload, track.addData);
+
 // app.post('/upload', image.upsertImage);
 
 // app.put('/albums', apiCall.addData);
@@ -226,26 +228,28 @@ app.delete('/deleteComment/:comment_id/:user_id', comment.deleteComment);
 app.delete('/deleteSubComment/:comment_id/:user_id', comment.deleteSubComment);
 app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 app.delete('/cancel-subscription', payment.cancelSubscription);
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
 
 
-
-
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
+// });
 
 
 
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`App running on port ${port}.`)
-})
 
 
-// app.listen(port, () => {
+
+
+// app.listen(process.env.PORT || port, () => {
 //   console.log(`App running on port ${port}.`)
 // })
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 
 module.exports = {
