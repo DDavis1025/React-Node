@@ -45,7 +45,6 @@ function PrivacyPolicy() {
     <div className="privacyPolicy">
     <PrivacyPolicyBar/>
      <Row>
-      <h3 style={{marginLeft: "35px"}}>Mobile Application</h3>
       <Col style={{marginRight: "20px", marginLeft: "20px", width: "70%"}}>
       <div id="policy" width="640" height="480"
 data-policy-key="VDFkWlREZHpUVEZUWkdOeVRHYzlQUT09"
