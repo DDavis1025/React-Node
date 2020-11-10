@@ -149,22 +149,26 @@ function Account() {
   async function deleteAccountFunction() {
     try {
 
-      const deleteAuth0Account = await axios.post(`http://localhost:8000/deleteAuth0Account/${auth0Context.user.sub}`);
+      const deleteAuth0Account = await axios.post(`https://www.hiphopvolume.com/deleteAuth0Account/${auth0Context.user.sub}`);
 
       console.log("deleteAuth0Account" + deleteAuth0Account)
 
-      const deleteAccountData = await axios.delete(`http://localhost:8000/deleteAccountData/${auth0Context.user.sub}`);
+      const deleteAccountData = await axios.delete(`https://www.hiphopvolume.com/deleteAccountData/${auth0Context.user.sub}`);
 
       console.log("deleteAccountData" + deleteAccountData)
 
-
+      if (sub) {
+        const deleteSubscription = await axios.delete('https://www.hiphopvolume.com/deleteSubscription', {'sub_id': sub });
+      }
 
 
       alert('Okay. Your account was deleted');
 
-      logout()
+      logout({
+        return_to: "https://www.hiphopvolume.com/"
+      })
 
-      history.push('/');
+      // history.push('/');
     } catch(err) {
       console.log(err)
     }

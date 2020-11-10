@@ -229,6 +229,8 @@ app.delete('/deleteSubComment/:comment_id/:user_id', comment.deleteSubComment);
 app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 app.delete('/cancel-subscription', payment.cancelSubscription);
 app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
+app.delete('/deleteSubscription', artist.deleteSubscription);
+
 
 
 app.get('*', (req, res) => {

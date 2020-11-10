@@ -24,10 +24,9 @@ import { useHistory } from 'react-router-dom';
 import React, {useState, useContext, useEffect} from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import PrivacyPolicyBar from '../privacy-policy-bar';
 
 
-function PrivacyPolicy() {
+function MobileTermsOfService() {
   // State
   const [email, setEmail] = useState('');
 
@@ -43,12 +42,10 @@ function PrivacyPolicy() {
 
   return (
     <div className="privacyPolicy">
-    <PrivacyPolicyBar/>
      <Row>
-      <h3 style={{marginLeft: "35px"}}>Mobile Application</h3>
       <Col style={{marginRight: "20px", marginLeft: "20px", width: "70%"}}>
       <div id="policy" width="640" height="480"
-data-policy-key="VDFkWlREZHpUVEZUWkdOeVRHYzlQUT09"
+data-policy-key="WTFCb2JrcDViWFpYUzBKcFRXYzlQUT09"
 data-extra="h-depth=3"> </div>
 
       </Col>
@@ -64,4 +61,4 @@ data-extra="h-depth=3"> </div>
   );
  };
 
-export default PrivacyPolicy;
+export default MobileTermsOfService;

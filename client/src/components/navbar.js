@@ -16,7 +16,8 @@ const Navbar = (props) => (
 
 	<div className="sidenav-footer">
 	<ul>
-	<li><a className="sidenav-footer-li" href="/privacy-policy">Privacy Policy</a></li>
+	<li><a className="sidenav-footer-li" href="/mobile-terms-of-service">Terms of Service</a></li>
+	<li><a className="sidenav-footer-li" href="/mobile-privacy-policy">Privacy Policy</a></li>
 	</ul>
 	</div>
 

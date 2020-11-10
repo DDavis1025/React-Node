@@ -27,7 +27,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import PrivacyPolicyBar from '../privacy-policy-bar';
 
 
-function PrivacyPolicy() {
+function WebsitePrivacyPolicy() {
   // State
   const [email, setEmail] = useState('');
 
@@ -45,11 +45,10 @@ function PrivacyPolicy() {
     <div className="privacyPolicy">
     <PrivacyPolicyBar/>
      <Row>
-      <h3 style={{marginLeft: "35px"}}>Mobile Application</h3>
       <Col style={{marginRight: "20px", marginLeft: "20px", width: "70%"}}>
+      <h3>Website</h3>
       <div id="policy" width="640" height="480"
-data-policy-key="VDFkWlREZHpUVEZUWkdOeVRHYzlQUT09"
-data-extra="h-depth=3"> </div>
+data-policy-key="SzFOYWVsRjNOMlZPWkRkRk4wRTlQUT09"> </div>
 
       </Col>
       </Row> 
@@ -64,4 +63,4 @@ data-extra="h-depth=3"> </div>
   );
  };
 
-export default PrivacyPolicy;
+export default WebsitePrivacyPolicy;
