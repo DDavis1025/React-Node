@@ -338,7 +338,7 @@ const deleteAuth0Account = async (request, response) => {
   headers: {'content-type': 'application/json'},
   data: {
     grant_type: 'client_credentials',
-    client_id: 'ryuREoZEzPeJs57fsOK6Qt2hTsIv1a00',
+    client_id: 'RGPTciPqTAlJSDoO3zkL4GT1HV3fsptj',
     client_secret: process.env.AUTH0_CLIENT_SECRET,
     audience: 'https://dev-owihjaep.auth0.com/api/v2/'
    }
