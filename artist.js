@@ -340,7 +340,8 @@ const deleteAuth0Account = async (request, response) => {
     grant_type: 'client_credentials',
     client_id: 'RGPTciPqTAlJSDoO3zkL4GT1HV3fsptj',
     client_secret: process.env.AUTH0_CLIENT_SECRET,
-    audience: 'https://dev-owihjaep.auth0.com/api/v2/'
+    audience: 'https://dev-owihjaep.auth0.com/api/v2/',
+    scope: 'delete:users'
    }
   };
 
