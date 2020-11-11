@@ -298,10 +298,10 @@ const deleteAccountData = async (request, response) => {
             'DELETE FROM sub_comments WHERE user_id = $1',
             [user_id])
       let deleteFromTrack = await db.pool.query(
-            'DELETE FROM track WHERE user_id = $1',
+            'DELETE FROM track WHERE author = $1',
             [user_id])
       let deleteFromTrackImages = await db.pool.query(
-            'DELETE FROM track_images WHERE user_id = $1',
+            'DELETE FROM track_images WHERE author = $1',
             [user_id])
       let deleteFromUserFollowers = await db.pool.query(
             'DELETE FROM user_followers WHERE user_id = $1',
@@ -313,10 +313,10 @@ const deleteAccountData = async (request, response) => {
             'DELETE FROM user_info WHERE user_id = $1',
             [user_id])
       let deleteFromVideo = await db.pool.query(
-            'DELETE FROM video WHERE user_id = $1',
+            'DELETE FROM video WHERE author = $1',
             [user_id])
       let deleteFromVideoThumbnails = await db.pool.query(
-            'DELETE FROM video_thumbnails WHERE user_id = $1',
+            'DELETE FROM video_thumbnails WHERE author = $1',
             [user_id])
       let deleteFromSubscriptions = await db.pool.query(
             'DELETE FROM subscriptions WHERE user_id = $1',
