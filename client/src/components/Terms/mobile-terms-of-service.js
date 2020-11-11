@@ -44,9 +44,8 @@ function MobileTermsOfService() {
     <div className="privacyPolicy">
      <Row>
       <Col style={{marginRight: "20px", marginLeft: "20px", width: "70%"}}>
-      <div id="policy" width="640" height="480"
-data-policy-key="WTFCb2JrcDViWFpYUzBKcFRXYzlQUT09"
-data-extra="h-depth=3"> </div>
+      
+      <h1>Not Yet Available</h1>
 
       </Col>
       </Row> 
