@@ -117,7 +117,7 @@ const apiLimiter = rateLimit({
 
 
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 // app.get('/', (request, response) => {
@@ -244,9 +244,9 @@ app.delete('/removeProfile/:user_id', artist.removeProfile);
 
 
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 
@@ -255,14 +255,14 @@ app.delete('/removeProfile/:user_id', artist.removeProfile);
 
 
 
-// app.listen(process.env.PORT || port, () => {
-//   console.log(`App running on port ${port}.`)
-// })
-
-
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`App running on port ${port}.`)
 })
+
+
+// app.listen(port, () => {
+//   console.log(`App running on port ${port}.`)
+// })
 
 
 module.exports = {
