@@ -40,6 +40,11 @@ UPDATE songs
 SET copyright_infringing_content = true
 WHERE id = '';
 
+### UPDATE user_images
+UPDATE user_images
+SET copyright_infringing_content = true
+WHERE id = '';
+
 
 
 # INSERT rows (copyright_strikes_history)
