@@ -422,21 +422,9 @@ const emailVerification = async (request, response) => {
 const checkForCopyrightInfringement = async (request, response) => {
   const user_id = request.params.user_id;
   try {
-       let copyrightCheckedFields = await db.pool.query(
-            'SELECT COUNT(*)::smallint FROM fields WHERE author = $1 AND copyright_status_checked IS TRUE',
-            [user_id])
-
-       let copyrightCheckedAlbums = await db.pool.query(
-            'SELECT COUNT(*)::smallint FROM albums WHERE author = $1 AND copyright_status_checked IS TRUE',
-            [user_id])
-
-
-      let copyrightNotChecked = await copyrightCheckedFields.rows.concat(copyrightCheckedAlbums.rows);
-
-      if copyrightNotChecked.length > 0 {
 
       let copyrightFieldResults = await db.pool.query(
-            'SELECT * FROM fields WHERE author = $1 AND copyright_infringing_content IS TRUE',
+            'SELECT * FROM fields WHERE author = $1 AND copyright_infringing_content IS TRUE AND copyright_status_checked IS FALSE',
             [user_id])
       if (copyrightFieldResults.rowCount > 0) {
           copyrightFieldResults.rows.forEach((song, index) => {
@@ -446,7 +434,7 @@ const checkForCopyrightInfringement = async (request, response) => {
         })
       }
       let copyrightAlbumResults = await db.pool.query(
-            'SELECT * FROM albums WHERE author = $1 AND copyright_infringing_content IS TRUE',
+            'SELECT * FROM albums WHERE author = $1 AND copyright_infringing_content IS TRUE AND copyright_status_checked IS FALSE',
             [user_id])
       if (copyrightAlbumResults.rowCount > 0) {
            copyrightAlbumResults.rows.forEach((album, index) => {
@@ -472,9 +460,7 @@ const checkForCopyrightInfringement = async (request, response) => {
       let all = await copyrightFieldResults.rows.concat(copyrightAlbumResults.rows, copyrightStrikes.rows);
 
       response.status(200).json(all)      
-    } else {
-      response.status(204).send({ message: "No data" });
-    }
+    } 
 
   } catch(error) { 
     console.log(error) 

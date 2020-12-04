@@ -4,6 +4,7 @@
 
 UPDATE fields
 SET copyright_infringing_content = true
+AND copyright_status_checked = false
 WHERE id = '';
 
 [//]: # (track)
@@ -30,6 +31,7 @@ WHERE id = '';
 [//]: # (set for album)
 UPDATE albums
 SET copyright_infringing_content = true
+AND copyright_status_checked = false
 WHERE id = '';
 
 UPDATE file
