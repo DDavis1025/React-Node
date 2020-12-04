@@ -460,7 +460,6 @@ const checkForCopyrightInfringement = async (request, response) => {
       let all = await copyrightFieldResults.rows.concat(copyrightAlbumResults.rows, copyrightStrikes.rows);
 
       response.status(200).json(all)      
-    } 
 
   } catch(error) { 
     console.log(error) 
