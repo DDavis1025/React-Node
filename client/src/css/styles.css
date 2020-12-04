@@ -19,6 +19,8 @@ code {
 	max-width: 992px;
 	margin: auto;
 }*/
+
+
 .progress {
     width: 500px;
     margin: auto;
@@ -450,8 +452,19 @@ a.nav-menu:visited {
 }*/
 
 
+
 div#root {
     margin-left: 200px;
+}
+
+.resendEmail {
+    background: white !important;
+    color: #007bff !important;
+}
+
+.resendEmail:hover {
+    background: white !important;
+    color: #007bff !important;
 }
 
 /*.downloaded-form {

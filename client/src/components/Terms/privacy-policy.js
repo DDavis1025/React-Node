@@ -4,10 +4,6 @@ import { ButtonToggle } from "reactstrap";
 import { Container, Row, Col } from 'reactstrap';
 import { Progress } from 'reactstrap';
 import axios from 'axios';
-import auth0Client from "../../Auth";
-import { useAuth0 } from "../../react-auth0-spa";
-import {Auth0Context} from "../../react-auth0-spa"
-import { Auth0Provider } from "../../react-auth0-spa";
 import Profile from '../Profile';
 import { withRouter } from "react-router";
 import {
@@ -25,13 +21,23 @@ import React, {useState, useContext, useEffect} from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import PrivacyPolicyBar from '../privacy-policy-bar';
+import sanitizeHtml from 'sanitize-html';
 
 
 function PrivacyPolicy() {
   // State
   const [email, setEmail] = useState('');
+  const [response, setResponse] = useState('');
 
+  
   useEffect( () => {
+
+    async function getPrivacyPolicy() {
+    let response = await axios.get(`https://app.termageddon.com/api/policy/VDFkWlREZHpUVEZUWkdOeVRHYzlQUT09`);
+    setResponse(response)
+    console.log(response)
+    }
+    getPrivacyPolicy()
   	async function fetchData() {
 
   	try {
@@ -41,26 +47,34 @@ function PrivacyPolicy() {
     fetchData()
   }, []);
 
+
+
+if (response) {
   return (
     <div className="privacyPolicy">
     <PrivacyPolicyBar/>
      <Row>
       <Col style={{marginRight: "20px", marginLeft: "20px", width: "70%"}}>
-      <div id="policy" width="640" height="480"
-data-policy-key="VDFkWlREZHpUVEZUWkdOeVRHYzlQUT09"
-data-extra="h-depth=3"> </div>
+      <div dangerouslySetInnerHTML={{__html: sanitizeHtml(response.data, {
+       allowedTags: false,
+       allowedAttributes: false
+       })}} /> 
 
       </Col>
       </Row> 
-
-      <style dangerouslySetInnerHTML={{__html: `
+   
+      <style dangerouslySetInnerHTML={{__html: sanitizeHtml( `
       .loginLogout { display: none; }
-    `}} />    
+    `)}} />  
     </div>
 
   	
 
   );
+  } else {
+    return(<div></div>)
+  }
  };
+
 
 export default PrivacyPolicy;

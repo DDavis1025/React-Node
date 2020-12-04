@@ -309,7 +309,7 @@ if (loading) {
           Premium
         </Typography>
         <Typography className={classes.price}>
-        USD $5.50/Month
+        USD $5.00/Month
         </Typography>
         <ul className={classes.ulClass}>
         <li>80GB of media data</li>

@@ -9,7 +9,7 @@ class Auth {
       clientID: 'z4B9Lh4mlL5pd4F8zJwtpEeLDFd3BaJX',
       redirectUri: 'http://localhosthost:3000',
       responseType: 'id_token',
-      scope: 'openid profile'
+      scope: 'openid profile',
     });
 
     // this.getUserID = this.getUserID.bind(this);

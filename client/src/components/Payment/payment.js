@@ -20,7 +20,7 @@ class Payment extends Component {
     this.state = {
       product: {
         name: "Premium",
-        price: 5.50
+        price: 5.00
       }
     };
 

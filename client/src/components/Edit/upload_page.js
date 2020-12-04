@@ -29,6 +29,7 @@ class UploadPage extends Component {
   this.roundToTenth = this.roundToTenth.bind(this);
   this.fetchData = this.fetchData.bind(this);
   this.fetchDataUsage = this.fetchDataUsage.bind(this);
+  this.sendEmailValidation = this.sendEmailValidation.bind(this);
 
  
     this.state = {
@@ -43,6 +44,7 @@ class UploadPage extends Component {
 
 
   componentDidMount() {
+    let email_verified = this.context.user.email_verified;
     this.fetchData()
   }
 
@@ -96,13 +98,37 @@ class UploadPage extends Component {
     }
   }
 
+  sendEmailValidation = async () => {
+    let user_id = this.context.user.sub;
+    try {
+    const emailValidation = await axios.post('http://localhost:8000/emailVerification', {'user_id': user_id});
+    alert('Email Sent')
+    console.log(emailValidation)
+    } catch(err) {
+      console.log(err.response)
+      if (err.response.status == 429) {
+        alert(err.response.data)
+      }
+    }
+  }
+
 
 
 
 
   
   render() {
-    console.log(this.state.percentage + this.state.dataUsage)
+    console.log(this.context)
+    if (this.context) {
+    if (!this.context.user.email_verified) {
+      return(
+       <div style={{marginTop:"20px", marginLeft:"auto", marginRight:"auto", textAlign:"center"}}>
+       <h3>Please verify your email before uploading content</h3><Button className="resendEmail" outline color="primary" onClick={this.sendEmailValidation}>Resend Email</Button>
+       <p>or</p>
+       <Button className="resendEmail" outline color="primary" onClick={() => window.location.reload(false)}>Done. Reload</Button>
+       </div>
+      )
+    } else {
     return (
 
  
@@ -184,6 +210,8 @@ class UploadPage extends Component {
  
       
     );
+    } 
+   }
   }
 }
 UploadPage.contextType = Auth0Context;

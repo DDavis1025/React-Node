@@ -1,5 +1,10 @@
-import React, { Component } from 'react';
+import {Auth0Context} from "./react-auth0-spa";
+import React, { Component, useContext } from 'react';
 import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
+import PrivacyPolicy from "./components/Terms/privacy-policy";
+import WebsitePrivacyPolicy from "./components/Terms/website-privacy-policy";
+import MobileTermsOfService from "./components/Terms/mobile-terms-of-service";
+
 import Profile from "./components/Profile";
 import history from "./utils/history";
 import './css/styles.css';
@@ -34,10 +39,7 @@ import Premium from "./components/Payment/premium";
 import Billing from "./components/Payment/billing";
 import UpdatePaymentInfo from "./components/Payment/updatePayment";
 import Account from "./components/Profile/account";
-import PrivacyPolicy from "./components/Terms/privacy-policy";
-import WebsitePrivacyPolicy from "./components/Terms/website-privacy-policy";
-import MobileTermsOfService from "./components/Terms/mobile-terms-of-service";
-
+import EmailNotVerified from "./components/Profile/emailNotVerified";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
@@ -46,11 +48,20 @@ function App() {
 
   const { loading } = useAuth0();
   const { isAuthenticated } = useAuth0();
+  const auth0Context = useContext(Auth0Context);
+  let email_verified;
+  if (auth0Context.user) {
+  email_verified = auth0Context.user.email_verified;
+  }
+  
+
 
   if (loading) {
     return <div style={{height: '100vh', display: 'flex',  justifyContent:'center', alignItems:'center'}}><Spinner style={{ width: '3rem', height: '3rem' }} /></div>
-  }
-  
+  } 
+
+
+  if (auth0Context.user && isAuthenticated) {
   return (
     <BrowserRouter>
       <div className="App">
@@ -60,12 +71,15 @@ function App() {
       <Route path="/mobile-terms-of-service" component={MobileTermsOfService}/>
       <NavBar2 />
       <Navbar/>
-      {isAuthenticated && (
+      {!email_verified ? 
+      <Route path={["*"]} component={EmailNotVerified} />
+       :
       <div>
       <Switch>
           <Route path="/" exact />
           <PrivateRoute path="/profile" component={Profile} />
         </Switch>
+
       <Route exact path="/" render={() => <DownloadTest />} />
       <Route path="/download-test" component={DownloadTest} />
       <Route path="/image-upload" component={ImageUpload}/>
@@ -88,7 +102,6 @@ function App() {
       <Route path="/premium" component={Premium}/>
       <Route path="/billing" component={Billing}/>
       <Route path="/payment" component={Payment}/>
-
       <Route path="/account" component={Account}/>
       <Elements stripe={stripePromise}>
       <Route path="/get-premium" component={Subscription}/>
@@ -97,11 +110,28 @@ function App() {
       <Route path="/update-payment" component={UpdatePaymentInfo}/>
       </Elements>
       </div>
-      )}
+      }
       </Router>
       </div>
     </BrowserRouter>
   );
+} else {
+  return (
+    <BrowserRouter>
+      <div className="App">
+      <Router history={history}>
+      <Route path="/mobile-privacy-policy" component={PrivacyPolicy}/>
+      <Route path="/website-privacy-policy" component={WebsitePrivacyPolicy}/>
+      <Route path="/mobile-terms-of-service" component={MobileTermsOfService}/>
+      <NavBar2 />
+      <Navbar/>
+      </Router>
+      </div>
+      </BrowserRouter>
+      )
+
+}
+
 
 }
 

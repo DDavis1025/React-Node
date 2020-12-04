@@ -100,7 +100,7 @@ const updateVideoByID = (request, response) => {
 
 const videoByArtistID = (request, response) => {
     const id = request.params.id;
-    db.pool.query('SELECT * FROM video_thumbnails JOIN fields ON video_thumbnails.id = fields.id WHERE video_thumbnails.author = $1 ORDER BY time_added DESC', [id])
+    db.pool.query('SELECT * FROM video_thumbnails JOIN fields ON video_thumbnails.id = fields.id WHERE video_thumbnails.author = $1 AND video_thumbnails.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC', [id])
     .then((results) => {
      response.status(200).json(results.rows)
     }).catch(error => console.log("GET video by artist ID" + error));
@@ -152,7 +152,7 @@ const deleteVideo = (request, response) => {
 const getAllVideos = (request, response) => {
 	let type = "video"
 
-	db.pool.query('SELECT * FROM fields JOIN video_thumbnails ON fields.id = video_thumbnails.id WHERE type = $1 ORDER BY time_added DESC',
+	db.pool.query('SELECT * FROM fields JOIN video_thumbnails ON fields.id = video_thumbnails.id WHERE type = $1 AND video_thumbnails.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC',
 		[type])
 
     .then(results => {

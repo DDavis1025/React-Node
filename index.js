@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const rateLimit = require("express-rate-limit");
 const db = require('./queries');
 const album = require('./albums');
 const image = require('./image-upload');
@@ -107,6 +108,13 @@ app.use(function(req, res, next) {
   next();
 });
 
+const apiLimiter = rateLimit({
+  windowMs: 20 * 60 * 1000, // 30 minutes
+  max: 3,
+  message:
+    "Too many requests sent. Please wait 20 minutes before trying again."
+});
+
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -177,6 +185,7 @@ app.get('/retrieve-customer-payment-method', payment.retrievePaymentMethod);
 app.get('/retrieve-customer', payment.retrieveCustomer);
 app.get('/retrieve-subscription', payment.retrieveSubscription);
 app.get('/get-user-payment-method', payment.getAuthUserPaymentMethod);
+app.get('/checkCopyrightInfringement/:user_id', artist.checkForCopyrightInfringement);
 // app.get('/test/:id', apiCall.testGet);
 app.post('/follower', artist.addFollower);
 app.post('/userImageUpload', upload, artist.upsertUserImage);
@@ -199,6 +208,7 @@ app.post('/cancel-subscription-period-end', payment.cancelSubscriptionPeriodEnd)
 app.post('/webhooks', payment.webhooks);
 app.post('/detach-payment-method', payment.detachDefaultPaymentMethod);
 app.post('/deleteAuth0Account/:user_id', artist.deleteAuth0Account);
+app.post('/emailVerification', apiLimiter, artist.emailVerification);
 
 // app.get('/albums/:id/songs', apiCall.selectSongs);
 // app.post('/albums/', apiCall.addData);
@@ -230,6 +240,7 @@ app.delete('/deletePostLike/:post_id/:supporter_id', query.deletePostLike);
 app.delete('/cancel-subscription', payment.cancelSubscription);
 app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
 app.delete('/deleteSubscription', artist.deleteSubscription);
+app.delete('/removeProfile/:user_id', artist.removeProfile);
 
 
 

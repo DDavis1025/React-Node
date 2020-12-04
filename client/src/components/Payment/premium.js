@@ -54,7 +54,7 @@ class Premium extends Component {
           marginRight: "auto", marginTop:"5px", borderRadius: "10px"}} width="100%" src={process.env.PUBLIC_URL + "/HipHopVolumeLogo(Edited)(2).jpg"} alt="Card image cap" />
         <CardBody style={{color:"black"}}>
           <CardTitle style={{fontSize:"30px", textAlign:"center"}} className="premiumCardTitle"><b>Premium</b></CardTitle>
-          <CardSubtitle style={{fontSize:"15px", textAlign:"center"}} className="premiumCardSubtitle">USD $5.50/Month(recurring payment)</CardSubtitle>
+          <CardSubtitle style={{fontSize:"15px", textAlign:"center"}} className="premiumCardSubtitle">USD $5.00/Month(recurring payment)</CardSubtitle>
           <br></br>
           <ul style={{textAlign: "left"}}className="premiumUL">
           <li>80GB of media data. A regular 1 hour video is about 0.25GB</li>
