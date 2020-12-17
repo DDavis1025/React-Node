@@ -5,23 +5,24 @@ var comments = require('./comments');
 const getAll = (request, response) => {
 
 	db.pool.query(
-    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_content IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC')
+    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_content IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC')
     .then(results => {
       response.status(200).json(results.rows)
     }).catch(error => console.log(error));
 }
+
 
 const getAllByID = (request, response) => {
 	const id = request.params.id;
 	let someRows, otherRows, all;
 
 	db.pool.query(
-    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE id = $1 AND albums.copyright_infringing_content IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE',
+    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE id = $1',
      [id])
     .then( results => {
         someRows = results.rows;
         return db.pool.query(
-          'SELECT * FROM songs WHERE album_id = $1 AND copyright_infringing_content IS NOT TRUE ORDER BY index ASC',
+          'SELECT * FROM songs WHERE album_id = $1 ORDER BY index ASC',
            [id]);
     } )
     .then( results => {
@@ -152,5 +153,5 @@ const tokenRequest = (error, response, body) => {
   addPostLike,
   deletePostLike,
   getPostLikeByUser,
-  getLikesByPostID,
+  getLikesByPostID
  }

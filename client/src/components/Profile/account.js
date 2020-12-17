@@ -241,6 +241,23 @@ function Account() {
       </Col>
       </Row>     
     </div>
+
+     <div>
+     <Row>
+      <Col style={{position: 'relative',
+      left: '40px', minWidth:"340px", maxWidth:"500px", marginTop:"20px", marginBottom: "20px"}}>
+        <Card body>
+        <div>
+          <CardTitle><h3><b>Copyright Infringing Content</b></h3></CardTitle>
+          <CardText></CardText>
+          <CardLink href={"albums/copyright_infringing"}>
+          <Button>View</Button>
+          </CardLink>
+          </div>
+        </Card>
+      </Col>
+      </Row>     
+    </div>
     </div>
   	
 

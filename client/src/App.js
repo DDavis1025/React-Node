@@ -40,7 +40,19 @@ import Billing from "./components/Payment/billing";
 import UpdatePaymentInfo from "./components/Payment/updatePayment";
 import Account from "./components/Profile/account";
 import EmailNotVerified from "./components/Profile/emailNotVerified";
-
+import Submissions from "./components/Reviews/submissions";
+import AcceptedSubmissions from "./components/Reviews/acceptedSubmissions";
+import DeclinedSubmissions from "./components/Reviews/declinedSubmissions";
+import ReviewTrack from "./components/Reviews/review_track";
+import ReviewVideo from "./components/Reviews/review_video";
+import ReviewAlbum from "./components/Reviews/review_album";
+import CopyrightInfringingAlbums from "./components/Profile/copyright_infringing_albums";
+import CopyrightInfringingAlbum from "./components/Profile/copyright_infringing_album";
+import CopyrightInfringingAlbumImage from "./components/Profile/copyright_infringing_album_image";
+import CopyrightInfringingTracks from "./components/Profile/copyright_infringing_tracks";
+import CopyrightInfringingTrack from "./components/Profile/copyright_infringing_track";
+import CopyrightInfringingVideos from "./components/Profile/copyright_infringing_videos";
+import CopyrightInfringingVideo from "./components/Profile/copyright_infringing_video";
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
 
@@ -87,22 +99,35 @@ function App() {
       <Route path="/downloaded" component={Downloaded} />
       <Route path="/album/upload" component={AddAlbum}/>
       <Route path="/video/upload" component={AddVideo}/>
-      <Route path="/album/:albumId" component={Album}/>
+      <Route path="/album/:albumId" exact component={Album}/>
       <Route path="/upload" component={Upload}/>
       <Route path="/feed" component={Feed}/>
       <Route path="/user-profile" component={ProfilePage}/>
       <Route path="/:albumId/album/edit" component={EditAlbum}/>
-      <Route path="/albums" component={ProfileAlbums}/>
+      <Route path="/albums" exact component={ProfileAlbums}/>
       <Route path="/:videoId/video/edit/" component={EditVideo}/>
       <Route path="/track/upload/" component={AddTrack}/>
       <Route path="/:trackId/track/edit/" component={EditTrack}/>
       <Route path="/uploads/" component={UploadPage}/>
-      <Route path="/videos/" component={ProfileVideos}/>
-      <Route path="/tracks/" component={ProfileTracks}/>
+      <Route path="/videos/" exact component={ProfileVideos}/>
+      <Route path="/tracks/" exact component={ProfileTracks}/>
       <Route path="/premium" component={Premium}/>
       <Route path="/billing" component={Billing}/>
       <Route path="/payment" component={Payment}/>
       <Route path="/account" component={Account}/>
+      <Route exact path="/submissions" component={Submissions}/>
+      <Route exact path="/accepted_submissions" component={AcceptedSubmissions}/>
+      <Route exact path="/declined_submissions" component={DeclinedSubmissions}/>
+      <Route path="/track/:item_id/review/" component={ReviewTrack}/>
+      <Route path="/video/:item_id/review/" component={ReviewVideo}/>
+      <Route path="/album/:item_id/review/" component={ReviewAlbum}/>
+      <Route path="/albums/copyright_infringing/" component={CopyrightInfringingAlbums}/>
+      <Route path="/:album_id/album/copyright_infringing/songs" exact component={CopyrightInfringingAlbum}/>
+      <Route path="/:album_id/album/copyright_infringing/image" exact component={CopyrightInfringingAlbumImage}/>
+      <Route path="/tracks/copyright_infringing/" exact component={CopyrightInfringingTracks}/>
+      <Route path="/:item_id/copyright_infringing/:type" exact component={CopyrightInfringingTrack}/>
+      <Route path="/videos/copyright_infringing" exact component={CopyrightInfringingVideos}/>
+      <Route path="/:item_id/video/copyright_infringing" exact component={CopyrightInfringingVideo}/>
       <Elements stripe={stripePromise}>
       <Route path="/get-premium" component={Subscription}/>
       </Elements>

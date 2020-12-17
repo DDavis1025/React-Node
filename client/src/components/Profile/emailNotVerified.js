@@ -62,7 +62,7 @@ class EmailNotVerified extends Component {
   
   render() {
     const { pathname } = this.props.location;
-    if(pathname === "/mobile-privacy-policy" || pathname === "/website-privacy-policy" || pathname === "/mobile-terms-of-service") {
+    if(pathname === "/mobile-privacy-policy" || pathname === "/website-privacy-policy" || pathname === "/mobile-terms-of-service" || pathname === "/submissions") {
         return null;
     }
     console.log(this.context)

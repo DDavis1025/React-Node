@@ -467,6 +467,18 @@ div#root {
     color: #007bff !important;
 }
 
+.declinePost {
+  background: red !important;
+}
+
+.adminNavbar li {
+    float: left;
+    margin-left:5px;
+    margin-right: 5px;
+    text-decoration: underline;
+    font-size:12px;
+}
+
 /*.downloaded-form {
     margin: 20px 10px;
 }*/

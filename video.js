@@ -22,8 +22,8 @@ let video_id;
       
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO video_thumbnails ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
-        [request.files.file[0].key, request.files.file[0].size, video_id, author_id]);
+        'INSERT INTO video_thumbnails ("path", size, id, author, image_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, video_id, author_id, uuid]);
   }).then(results => {
          console.log(results.rows)
   }).then(() => {
@@ -106,6 +106,14 @@ const videoByArtistID = (request, response) => {
     }).catch(error => console.log("GET video by artist ID" + error));
 }
 
+const allVideoByArtistID = (request, response) => {
+    const id = request.params.id;
+    db.pool.query('SELECT * FROM video_thumbnails JOIN fields ON video_thumbnails.id = fields.id WHERE video_thumbnails.author = $1 ORDER BY time_added DESC', [id])
+    .then((results) => {
+     response.status(200).json(results.rows)
+    }).catch(error => console.log("GET video by artist ID" + error));
+}
+
 
 const deleteVideo = (request, response) => {
   const id = request.params.id;
@@ -181,5 +189,6 @@ module.exports = {
   deleteVideo,
   videoByArtistID,
   getAllVideos,
-  getVideoPathByID
+  getVideoPathByID,
+  allVideoByArtistID
 }

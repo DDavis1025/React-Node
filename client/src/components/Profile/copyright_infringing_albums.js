@@ -16,14 +16,16 @@ import {
  Switch,
  Route
 } from "react-router-dom";
-import ProfileBar from '../profile-bar';
+import CopyrightBar from './copyright_bar';
 
 
-class ProfileVideos extends Component {
+class CopyrightInfringingAlbums extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      video: {},
+      album: {},
+      copyright_infringing_image: false,
+      type: '',
     };
 
   }
@@ -31,15 +33,17 @@ class ProfileVideos extends Component {
 
   componentDidMount() {
     let user_id = this.context.user.sub;
-    console.log("user_id" + user_id)
     console.log('COMPONENT HAS MOUNTED');
-    let video = this.state.video;
-    fetch(`/allArtist/video/${user_id}`)
+    fetch(`/albums/copyright_infringing/${user_id}`)
     .then((response) =>
       response.json())
     .then((data) => {
-      console.log("data" + data)
-      this.setState({ video : data });
+      this.setState({ album : data });
+      if (data[0].copyright_infringing_image) {
+      this.setState({type: 'image'})
+      } else {
+       this.setState({type: 'songs'})
+      }
 
     }).catch((error) => {
       console.log("Error " + error)
@@ -47,31 +51,32 @@ class ProfileVideos extends Component {
 
   }
 
-
+ 
 
 
   render() {
+    console.log("this.state.album" + JSON.stringify(this.state.album))
     return (
  <div>
        <div>
-        <ProfileBar />
+        <CopyrightBar />
         </div>
 
 <div>
       <ul>
       <CardDeck>
 
-      {this.state.video.length && this.state.video.map((video,index) => {
+      {this.state.album.length && this.state.album.map((album,index) => {
         return ( 
 
           <div key={index}> 
-          <Link to={`/${video.id}/video/edit`}>
-          <Card style={{width: "250px", height:"270px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
-          <CardImg style={{width: "240px", height:"135px", display: "block",
+          <Link to={`/${album.id}/album/copyright_infringing/${this.state.type}`}>
+          <Card style={{width: "200px", height:"299px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <CardImg style={{width: "190px", height:"190px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",
           marginRight: "auto",
-          border:"1px solid lightgrey"}} src={"https://hiphopvolumebucket.s3.amazonaws.com/" + video.path} />
+          border:"1px solid lightgrey"}} src={"https://hiphopvolumebucket.s3.amazonaws.com/" + album.path} />
           <CardBody>
           <CardTitle style={{whiteSpace: "nowrap",
           color: "black",
@@ -79,7 +84,7 @@ class ProfileVideos extends Component {
           textOverflow: "ellipsis",
           fontSize: "13px"}}>
           <b>
-          {video.title}
+          {album.title}
           </b>
           </CardTitle>
           <CardText style={{whiteSpace: "nowrap",
@@ -87,26 +92,15 @@ class ProfileVideos extends Component {
           color: "black",
           textOverflow: "ellipsis", 
           fontSize: "11px"}}>
-          {video.description}
+          {album.description}
           </CardText>
-          {video.accepted &&
-           <CardText style={{whiteSpace: "nowrap",
-          overflow: "hidden",
-          color: "green",
-          textOverflow: "ellipsis", 
-          fontSize: "13px"}}>
-          Accepted
-          </CardText>
-          }
-          {video.declined &&
-           <CardText style={{whiteSpace: "nowrap",
+          <CardText style={{whiteSpace: "nowrap",
           overflow: "hidden",
           color: "red",
           textOverflow: "ellipsis", 
-          fontSize: "13px"}}>
-          Declined
+          fontSize: "11px"}}>
+          Copyright Infringement
           </CardText>
-          }
           </CardBody>
           </Card>
           </Link>
@@ -122,6 +116,6 @@ class ProfileVideos extends Component {
         )
       }
     };
-ProfileVideos.contextType = Auth0Context;
+CopyrightInfringingAlbums.contextType = Auth0Context;
 
-export default ProfileVideos;
+export default CopyrightInfringingAlbums;

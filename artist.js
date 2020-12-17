@@ -1,5 +1,6 @@
 const db = require('./queries');
 const fs = require('fs');
+const uuidv4 = require('uuid/v4');
 var path = require('path');
 var indexJS = require('./index');
 var info = require('./info');
@@ -9,7 +10,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const getArtistByID = (request, response) => {
 	const id = request.params.id;
-    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 AND albums.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC', [id])
+    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 ORDER BY time_added DESC', [id])
+    .then(results => {
+      response.status(200).json(results.rows)
+      console.log('+ SELECT for artists')
+    }).catch(error => console.log(error));
+}
+
+const getAllArtistByID = (request, response) => {
+  const id = request.params.id;
+    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 ORDER BY time_added DESC', [id])
     .then(results => {
       response.status(200).json(results.rows)
       console.log('+ SELECT for artists')
@@ -82,6 +92,7 @@ const uploadImage = (request, response) => {
 
 
 const upsertUserImage = (request, response) => {
+    const uuid = uuidv4();
     const { user_id } = request.body;
     let picture_path = request.files.file[0].key
 
@@ -557,6 +568,7 @@ const removeProfile = async (request, response) => {
 
   let dltResponse = await axios.request(deleteAccountOptions)
 
+
   response.status(200).send({ message: "Successfully deleted account" });
 
 
@@ -570,6 +582,7 @@ const removeProfile = async (request, response) => {
 module.exports = {
    deleteSubscription,
    getArtistByID,
+   getAllArtistByID,
    addFollower,
    getFollowingByUserId,
    getFollowedByFollowerID,

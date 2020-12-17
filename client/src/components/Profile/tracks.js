@@ -34,7 +34,7 @@ class ProfileTracks extends Component {
     console.log("user_id" + user_id)
     console.log('COMPONENT HAS MOUNTED');
     let album = this.state.album;
-    fetch(`/artist/track/${user_id}`)
+    fetch(`/allArtist/track/${user_id}`)
     .then((response) =>
       response.json())
     .then((data) => {
@@ -67,7 +67,7 @@ class ProfileTracks extends Component {
 
           <div key={index}> 
           <Link to={`/${track.id}/track/edit`}>
-          <Card style={{width: "200px", height:"299px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <Card style={{width: "200px", height:"320px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
           <CardImg style={{width: "190px", height:"190px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",
@@ -90,6 +90,24 @@ class ProfileTracks extends Component {
           fontSize: "11px"}}>
           {track.description}
           </CardText>
+          {track.accepted &&
+           <CardText style={{whiteSpace: "nowrap",
+          overflow: "hidden",
+          color: "green",
+          textOverflow: "ellipsis", 
+          fontSize: "13px"}}>
+          Accepted
+          </CardText>
+          }
+          {track.declined &&
+           <CardText style={{whiteSpace: "nowrap",
+          overflow: "hidden",
+          color: "red",
+          textOverflow: "ellipsis", 
+          fontSize: "13px"}}>
+          Declined
+          </CardText>
+          }
           </CardBody>
           </Card>
           </Link>

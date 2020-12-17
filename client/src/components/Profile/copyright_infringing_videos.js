@@ -16,10 +16,10 @@ import {
  Switch,
  Route
 } from "react-router-dom";
-import ProfileBar from '../profile-bar';
+import CopyrightBar from './copyright_bar';
 
 
-class ProfileVideos extends Component {
+class CopyrightInfringingVideos extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ class ProfileVideos extends Component {
     console.log("user_id" + user_id)
     console.log('COMPONENT HAS MOUNTED');
     let video = this.state.video;
-    fetch(`/allArtist/video/${user_id}`)
+    fetch(`/videos/copyright_infringing/${user_id}`)
     .then((response) =>
       response.json())
     .then((data) => {
@@ -53,9 +53,7 @@ class ProfileVideos extends Component {
   render() {
     return (
  <div>
-       <div>
-        <ProfileBar />
-        </div>
+ <CopyrightBar />
 
 <div>
       <ul>
@@ -65,8 +63,8 @@ class ProfileVideos extends Component {
         return ( 
 
           <div key={index}> 
-          <Link to={`/${video.id}/video/edit`}>
-          <Card style={{width: "250px", height:"270px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <Link to={`/${video.id}/video/copyright_infringing`}>
+          <Card style={{width: "250px", height:"250px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
           <CardImg style={{width: "240px", height:"135px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",
@@ -89,24 +87,13 @@ class ProfileVideos extends Component {
           fontSize: "11px"}}>
           {video.description}
           </CardText>
-          {video.accepted &&
-           <CardText style={{whiteSpace: "nowrap",
-          overflow: "hidden",
-          color: "green",
-          textOverflow: "ellipsis", 
-          fontSize: "13px"}}>
-          Accepted
-          </CardText>
-          }
-          {video.declined &&
-           <CardText style={{whiteSpace: "nowrap",
+          <CardText style={{whiteSpace: "nowrap",
           overflow: "hidden",
           color: "red",
           textOverflow: "ellipsis", 
-          fontSize: "13px"}}>
-          Declined
+          fontSize: "11px"}}>
+          Copyright Infringement
           </CardText>
-          }
           </CardBody>
           </Card>
           </Link>
@@ -122,6 +109,6 @@ class ProfileVideos extends Component {
         )
       }
     };
-ProfileVideos.contextType = Auth0Context;
+CopyrightInfringingVideos.contextType = Auth0Context;
 
-export default ProfileVideos;
+export default CopyrightInfringingVideos;

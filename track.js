@@ -24,8 +24,8 @@ let track_id;
         [request.files.track[0].key, request.files.track[0].size, track_id, author_id]);
   }).then(() => {
       return db.pool.query(
-        'INSERT INTO track_images ("path", size, id, author) VALUES ($1, $2, $3, $4) RETURNING *',
-        [request.files.file[0].key, request.files.file[0].size, track_id, author_id]);
+        'INSERT INTO track_images ("path", size, id, author, image_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, track_id, author_id, uuid]);
   }).then(results => {
   }).then(results => {
   	     response.status(200).send({ message: "Success: Added track" });
@@ -101,6 +101,14 @@ const updateTrackByID = (request, response) => {
 const trackByArtistID = (request, response) => {
     const id = request.params.id;
     db.pool.query('SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 AND track_images.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC', [id])
+    .then((results) => {
+     response.status(200).json(results.rows)
+    }).catch(error => console.log("GET video by artist ID" + error));
+}
+
+const allTrackByArtistID = (request, response) => {
+    const id = request.params.id;
+    db.pool.query('SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 ORDER BY time_added DESC', [id])
     .then((results) => {
      response.status(200).json(results.rows)
     }).catch(error => console.log("GET video by artist ID" + error));
@@ -196,5 +204,6 @@ module.exports = {
   trackByArtistID,
   getAllTracks,
   trackPathAndImageByID,
-  getTrackAuthor
+  getTrackAuthor,
+  allTrackByArtistID
 }

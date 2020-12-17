@@ -32,10 +32,11 @@ class ProfileAlbums extends Component {
   componentDidMount() {
     let user_id = this.context.user.sub;
     console.log('COMPONENT HAS MOUNTED');
-    fetch(`/artist/${user_id}`)
+    fetch(`/allArtist/${user_id}`)
     .then((response) =>
       response.json())
     .then((data) => {
+      console.log(data)
       this.setState({ album : data });
 
     }).catch((error) => {
@@ -64,7 +65,7 @@ class ProfileAlbums extends Component {
 
           <div key={index}> 
           <Link to={`/${album.id}/album/edit`}>
-          <Card style={{width: "200px", height:"299px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <Card style={{width: "200px", height:"320px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
           <CardImg style={{width: "190px", height:"190px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",
@@ -87,6 +88,24 @@ class ProfileAlbums extends Component {
           fontSize: "11px"}}>
           {album.description}
           </CardText>
+          {album.accepted &&
+           <CardText style={{whiteSpace: "nowrap",
+          overflow: "hidden",
+          color: "green",
+          textOverflow: "ellipsis", 
+          fontSize: "13px"}}>
+          Accepted
+          </CardText>
+          }
+          {album.declined &&
+           <CardText style={{whiteSpace: "nowrap",
+          overflow: "hidden",
+          color: "red",
+          textOverflow: "ellipsis", 
+          fontSize: "13px"}}>
+          Declined
+          </CardText>
+          }
           </CardBody>
           </Card>
           </Link>

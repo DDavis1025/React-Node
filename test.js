@@ -50,8 +50,8 @@ let image;
          console.log(res.rows);
        }).then(() => {
         db.pool.query(
-        'INSERT INTO file ("path", size, album_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
-        [request.files.file[0].key, request.files.file[0].size, album_id, album.user_id]);
+        'INSERT INTO file ("path", size, album_id, user_id, image_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [request.files.file[0].key, request.files.file[0].size, album_id, album.user_id, uuid]);
       }).then((res) => {
         response.status(200).send({ message: "Success" });
          // console.log("INSERT INTO file(images) " + request.body.data);
