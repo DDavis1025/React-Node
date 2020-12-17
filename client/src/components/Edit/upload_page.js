@@ -101,7 +101,7 @@ class UploadPage extends Component {
   sendEmailValidation = async () => {
     let user_id = this.context.user.sub;
     try {
-    const emailValidation = await axios.post('http://localhost:8000/emailVerification', {'user_id': user_id});
+    const emailValidation = await axios.post('/emailVerification', {'user_id': user_id});
     alert('Email Sent')
     console.log(emailValidation)
     } catch(err) {

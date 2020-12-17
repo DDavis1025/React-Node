@@ -333,6 +333,7 @@ deleteClick() {
 }
 
 render() {
+  console.log(this.state.album.accepted)
   const filesExist = this.state.album;
   if (!this.state.userHasAccess) {
     return (
@@ -428,6 +429,26 @@ render() {
                 </Col>
                 </Row>
                 </Container>
+
+
+     <Container>
+      <Row>
+       <Col>
+         {this.state.album.declined && 
+          <h3 style={{color:"red"}}>Declined.</h3>
+          }
+      </Col>
+      </Row> 
+     <Row>
+       <Col>
+       {this.state.album.declined && 
+             <h6>Please read the terms of service to see what content is accepted</h6>
+           }
+       </Col>
+       </Row>
+
+       </Container>
+
                 </div>
 
                 <div>
@@ -436,13 +457,15 @@ render() {
 
 
                 <Row>
-
+                <Col>
                 <ButtonToggle onClick={this.onClick} color="success">Save
                 </ButtonToggle> 
+                </Col>
                 </Row>
                 <Row>
-                <Button color="danger" size="sm" onClick={this.deleteClick}>Delete</Button>
-
+                <Col>
+                <Button color="danger" className="deletePost" size="sm" onClick={this.deleteClick}>Delete</Button>
+                </Col>
                 </Row>
                 </Container>
                 </div>

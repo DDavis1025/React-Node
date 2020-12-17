@@ -49,9 +49,9 @@ function ReviewAlbum() {
 useEffect( () => {
   async function fetchData() {
     try {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`https://www.hiphopvolume.com/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
-       const album = await axios.get(`http://localhost:8000/albums/${item_id}`);
+       const album = await axios.get(`https://www.hiphopvolume.com/albums/${item_id}`);
        console.log(album.data)
        setCopyrightInfringment(album.data[0].copyright_infringing_music)
        setCopyrightInfringmentImage(album.data[0].copyright_infringing_image)
@@ -73,7 +73,7 @@ async function acceptPost() {
   console.log("acceptPost")
     try {
 
-      const acceptPost = await axios.put(`http://localhost:8000/acceptSubmission/album/${item_id}`);
+      const acceptPost = await axios.put(`https://www.hiphopvolume.com/acceptSubmission/album/${item_id}`);
 
       alert('This post was accepted');
 
@@ -88,7 +88,7 @@ async function acceptPost() {
 async function declinePost() {
     try {
 
-      const declinePost = await axios.put(`http://localhost:8000/declineSubmission/album/${item_id}`);
+      const declinePost = await axios.put(`https://www.hiphopvolume.com/declineSubmission/album/${item_id}`);
 
       alert('This post was declined');
 
@@ -104,7 +104,7 @@ async function declinePost() {
   async function deleteProfile() {
     try {
 
-      const deleteProfile = await axios.delete(`http://localhost:8000/removeProfile/${album_author}`);
+      const deleteProfile = await axios.delete(`https://www.hiphopvolume.com/removeProfile/${album_author}`);
 
       alert('Author account was deleted for too many copyright strikes');
 
@@ -120,7 +120,7 @@ async function declinePost() {
 async function setCopyrightInfringementTrue(song_id) {
     try {
 
-      const setCopyrightInfringementTrue = await axios.post(`http://localhost:8000/setCopyrightInfringementTrueAlbum/${album_author}/${item_id}/${song_id}`);
+      const setCopyrightInfringementTrue = await axios.post(`https://www.hiphopvolume.com/setCopyrightInfringementTrueAlbum/${album_author}/${item_id}/${song_id}`);
 
       alert('Copyright Infringement set');
 
@@ -147,7 +147,7 @@ async function setCopyrightInfringementTrue(song_id) {
   async function setCopyrightInfringementFalse(song_id) {
     try {
 
-      const setCopyrightInfringementFalse = await axios.post(`http://localhost:8000/setCopyrightInfringementFalseAlbum/${item_id}/${song_id}`);
+      const setCopyrightInfringementFalse = await axios.post(`https://www.hiphopvolume.com/setCopyrightInfringementFalseAlbum/${item_id}/${song_id}`);
 
       alert('Copyright Infringement removed');
 
@@ -162,7 +162,7 @@ async function setCopyrightInfringementTrue(song_id) {
   async function setCopyrightInfringementTrueImage() {
     try {
 
-      const setCopyrightInfringementTrue = await axios.post(`http://localhost:8000/setCopyrightInfringementTrueAlbumImage/${album_author}/${item_id}/${album_image}`);
+      const setCopyrightInfringementTrue = await axios.post(`https://www.hiphopvolume.com/setCopyrightInfringementTrueAlbumImage/${album_author}/${item_id}/${album_image}`);
 
       alert('Copyright Infringement set');
 
@@ -188,7 +188,7 @@ async function setCopyrightInfringementTrue(song_id) {
   async function setCopyrightInfringementFalseImage() {
     try {
 
-      const setCopyrightInfringementFalse = await axios.post(`http://localhost:8000/setCopyrightInfringementFalseAlbumImage/${item_id}/${album_image}`);
+      const setCopyrightInfringementFalse = await axios.post(`https://www.hiphopvolume.com/setCopyrightInfringementFalseAlbumImage/${item_id}/${album_image}`);
 
       alert('Copyright Infringement removed');
 

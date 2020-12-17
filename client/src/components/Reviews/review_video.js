@@ -46,9 +46,9 @@ function ReviewVideo() {
 useEffect( () => {
   async function fetchData() {
     try {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
-       const video = await axios.get(`http://localhost:8000/video/${item_id}`);
+       const video = await axios.get(`/video/${item_id}`);
        console.log(video.data)
        setCopyrightInfringment(video.data[0].copyright_infringing_music)
        setVideoAuthor(video.data[0].author)
@@ -68,7 +68,7 @@ async function acceptPost() {
   console.log("acceptPost")
     try {
 
-      const acceptPost = await axios.put(`http://localhost:8000/acceptSubmission/video/${item_id}`);
+      const acceptPost = await axios.put(`/acceptSubmission/video/${item_id}`);
 
       alert('This post was accepted');
 
@@ -83,7 +83,7 @@ async function acceptPost() {
 async function declinePost() {
     try {
 
-      const declinePost = await axios.put(`http://localhost:8000/declineSubmission/video/${item_id}`);
+      const declinePost = await axios.put(`/declineSubmission/video/${item_id}`);
 
       alert('This post was declined');
 
@@ -99,7 +99,7 @@ async function declinePost() {
 async function deleteProfile() {
     try {
 
-      const deleteProfile = await axios.delete(`http://localhost:8000/removeProfile/${video_author}`);
+      const deleteProfile = await axios.delete(`/removeProfile/${video_author}`);
 
       alert('Author account was deleted for too many copyright strikes');
 
@@ -112,7 +112,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementTrue() {
     try {
 
-      const setCopyrightInfringementTrue = await axios.post(`http://localhost:8000/setCopyrightInfringementTrueVideo/${video_author}/${item_id}`);
+      const setCopyrightInfringementTrue = await axios.post(`/setCopyrightInfringementTrueVideo/${video_author}/${item_id}`);
 
       alert('Copyright Infringement set');
 
@@ -136,7 +136,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementFalse() {
     try {
 
-      const setCopyrightInfringementFalse = await axios.post(`http://localhost:8000/setCopyrightInfringementFalseVideo/${item_id}`);
+      const setCopyrightInfringementFalse = await axios.post(`/setCopyrightInfringementFalseVideo/${item_id}`);
 
       alert('Copyright Infringement removed');
 

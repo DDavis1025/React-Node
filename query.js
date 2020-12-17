@@ -5,7 +5,7 @@ var comments = require('./comments');
 const getAll = (request, response) => {
 
 	db.pool.query(
-    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_content IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC')
+    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_music IS NOT TRUE AND albums.copyright_infringing_image IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC')
     .then(results => {
       response.status(200).json(results.rows)
     }).catch(error => console.log(error));

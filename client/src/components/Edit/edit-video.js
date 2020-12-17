@@ -259,7 +259,23 @@ dataURItoBlob(dataURI) {
         </Container>
       }
 
+     <Container>
+      <Row>
+       <Col>
+         {this.state.user_fields.declined && 
+          <h3 style={{color:"red"}}>Declined.</h3>
+          }
+      </Col>
+      </Row> 
+     <Row>
+       <Col>
+       {this.state.user_fields.declined && 
+             <h6>Please read the terms of service to see what content is accepted</h6>
+           }
+       </Col>
+       </Row>
 
+       </Container>
 
 
 
@@ -271,12 +287,16 @@ dataURItoBlob(dataURI) {
       <div className="belowList">
 
       <Row>
+      <Col>
       <ButtonToggle onClick={this.onClick} color="success">Save
       </ButtonToggle>
+      </Col>
       </Row> 
 
       <Row>
-           <Button color="danger" size="sm" onClick={this.deleteClick}>Delete</Button>
+      <Col>
+           <Button className="deletePost" color="danger" size="sm" onClick={this.deleteClick}>Delete</Button>
+      </Col>
       </Row>
       </div>
 

@@ -10,7 +10,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const getArtistByID = (request, response) => {
 	const id = request.params.id;
-    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 ORDER BY time_added DESC', [id])
+    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 AND file.copyright_infringing_content IS NOT TRUE AND albums.copyright_infringing_music IS NOT TRUE AND albums.copyright_infringing_image IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC', [id])
     .then(results => {
       response.status(200).json(results.rows)
       console.log('+ SELECT for artists')
@@ -19,7 +19,7 @@ const getArtistByID = (request, response) => {
 
 const getAllArtistByID = (request, response) => {
   const id = request.params.id;
-    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 ORDER BY time_added DESC', [id])
+    db.pool.query('SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE author = $1 AND albums.copyright_infringing_music IS NOT TRUE AND albums.copyright_infringing_image IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC', [id])
     .then(results => {
       response.status(200).json(results.rows)
       console.log('+ SELECT for artists')

@@ -100,7 +100,9 @@ const updateTrackByID = (request, response) => {
 
 const trackByArtistID = (request, response) => {
     const id = request.params.id;
-    db.pool.query('SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 AND track_images.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC', [id])
+    db.pool.query(
+      'SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 AND track_images.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_music IS NOT TRUE AND fields.copyright_infringing_image IS NOT TRUE AND fields.accepted IS TRUE ORDER BY time_added DESC', 
+      [id])
     .then((results) => {
      response.status(200).json(results.rows)
     }).catch(error => console.log("GET video by artist ID" + error));
@@ -108,7 +110,7 @@ const trackByArtistID = (request, response) => {
 
 const allTrackByArtistID = (request, response) => {
     const id = request.params.id;
-    db.pool.query('SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 ORDER BY time_added DESC', [id])
+    db.pool.query('SELECT * FROM track_images JOIN fields ON track_images.id = fields.id WHERE track_images.author = $1 AND track_images.copyright_infringing_content IS NOT TRUE fields.copyright_infringing_music IS NOT TRUE AND fields.copyright_infringing_image IS NOT TRUE ORDER BY time_added DESC', [id])
     .then((results) => {
      response.status(200).json(results.rows)
     }).catch(error => console.log("GET video by artist ID" + error));
@@ -156,7 +158,7 @@ const deleteTrack = (request, response) => {
 const getAllTracks = (request, response) => {
   let type = "track"
 
-  db.pool.query('SELECT * FROM fields JOIN track_images ON fields.id = track_images.id WHERE type = $1 AND track_images.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_content IS NOT TRUE ORDER BY time_added DESC',
+  db.pool.query('SELECT * FROM fields JOIN track_images ON fields.id = track_images.id WHERE type = $1 AND track_images.copyright_infringing_content IS NOT TRUE AND fields.copyright_infringing_music IS NOT TRUE AND fields.copyright_infringing_image IS NOT TRUE AND fields.accepted IS TRUE ORDER BY time_added DESC',
     [type])
 
     .then(results => {

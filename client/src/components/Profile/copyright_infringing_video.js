@@ -46,9 +46,9 @@ function CopyrightInfringingVideo() {
 useEffect( () => {
   async function fetchData() {
     try {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
-       const video = await axios.get(`http://localhost:8000/video/${item_id}`);
+       const video = await axios.get(`/video/${item_id}`);
        console.log(video.data)
        setVideoAuthor(video.data[0].author)
        setUserFields(video.data[0]) 
@@ -77,7 +77,7 @@ return (
       <Container>
       <Row>
         <Col>
-        <h4>This video was taken down for copyright_infringement</h4>
+        <h4>This video was taken down for copyright infringement</h4>
         </Col> 
       </Row>
       <Row>

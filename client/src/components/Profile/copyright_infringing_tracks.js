@@ -24,7 +24,6 @@ class CopyrightInfringingTracks extends Component {
     this.state = {
       tracks: {},
       copyright_infringing_image: false,
-      type: '',
     };
 
   }
@@ -39,10 +38,8 @@ class CopyrightInfringingTracks extends Component {
     .then((data) => {
       this.setState({ tracks : data });
       if (data[0].copyright_infringing_image) {
-      this.setState({type: 'track_image'})
-      } else {
-       this.setState({type: 'track'})
-      }
+      this.setState({copyright_infringing_image: true}) 
+    }
 
     }).catch((error) => {
       console.log("Error " + error)
@@ -65,13 +62,21 @@ class CopyrightInfringingTracks extends Component {
         return ( 
 
           <div key={index}> 
-          <Link to={`/${track.id}/copyright_infringing/${this.state.type}`}>
-          <Card style={{width: "200px", height:"299px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <Link to={`/${track.id}/copyright_infringing/track`}>
+          <Card style={{width: "200px", height:"320px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          {this.state.copyright_infringing_image ?
+          <CardImg style={{width: "190px", height:"190px", display: "block",
+          marginLeft: "auto",
+          marginTop: "4px",
+          marginRight: "auto",
+          border:"1px solid lightgrey"}} src={process.env.PUBLIC_URL + "/music-placeholder.png"} />
+          :
           <CardImg style={{width: "190px", height:"190px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",
           marginRight: "auto",
           border:"1px solid lightgrey"}} src={"https://hiphopvolumebucket.s3.amazonaws.com/" + track.path} />
+          }
           <CardBody>
           <CardTitle style={{whiteSpace: "nowrap",
           color: "black",

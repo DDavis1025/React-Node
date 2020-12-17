@@ -43,10 +43,10 @@ useEffect( () => {
   async function fetchData() {
     try {
       
-       const album = await axios.get(`http://localhost:8000/albums/${album_id}`);
+       const album = await axios.get(`https://www.hiphopvolume.com/albums/${album_id}`);
        console.log(album.data[0])
        setAlbum(album.data[0])
-       const songs = await axios.get(`http://localhost:8000/songs/copyright_infringing/${album_id}`);
+       const songs = await axios.get(`https://www.hiphopvolume.com/songs/copyright_infringing/${album_id}`);
        console.log(songs.data)
        setSongs(songs.data)
 
@@ -65,9 +65,20 @@ return (
      <div>
 
        <Container style={{marginLeft: "20px"}}>
+       {album.copyright_infringing_image ?
+        <div>
+        <Row>
+        <img style={{border: "2px solid black"}} width="320" height="320" src={process.env.PUBLIC_URL + "/music-placeholder.png"} />
+        </Row>
+        <Row>
+          <h4>This image was taken down for copyright infringement</h4>
+        </Row>
+        </div>
+        :
         <Row>
         <img style={{border: "2px solid black"}} width="320" height="320" src={"https://hiphopvolumebucket.s3.amazonaws.com/" + album.path} />
       </Row>
+        }
        <Row>
         <b>Title:</b> {album.title}
         </Row>
@@ -77,6 +88,7 @@ return (
         <Row>
         <h4>This album was taken down for copyright infringement</h4>
         </Row>
+        {album.copyright_infringing_music &&
        <Row>
        <div>
        <h6>Song</h6>
@@ -92,7 +104,8 @@ return (
         }
         <h6>Was the subject of copyright infringement</h6>
         </div>
-      </Row>
+        </Row>
+      }
       </Container>
 
 

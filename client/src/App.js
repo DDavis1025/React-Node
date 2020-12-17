@@ -122,10 +122,9 @@ function App() {
       <Route path="/video/:item_id/review/" component={ReviewVideo}/>
       <Route path="/album/:item_id/review/" component={ReviewAlbum}/>
       <Route path="/albums/copyright_infringing/" component={CopyrightInfringingAlbums}/>
-      <Route path="/:album_id/album/copyright_infringing/songs" exact component={CopyrightInfringingAlbum}/>
-      <Route path="/:album_id/album/copyright_infringing/image" exact component={CopyrightInfringingAlbumImage}/>
+      <Route path="/:album_id/album/copyright_infringing/" exact component={CopyrightInfringingAlbum}/>
       <Route path="/tracks/copyright_infringing/" exact component={CopyrightInfringingTracks}/>
-      <Route path="/:item_id/copyright_infringing/:type" exact component={CopyrightInfringingTrack}/>
+      <Route path="/:item_id/copyright_infringing/track" exact component={CopyrightInfringingTrack}/>
       <Route path="/videos/copyright_infringing" exact component={CopyrightInfringingVideos}/>
       <Route path="/:item_id/video/copyright_infringing" exact component={CopyrightInfringingVideo}/>
       <Elements stripe={stripePromise}>

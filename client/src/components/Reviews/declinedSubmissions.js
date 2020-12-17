@@ -39,10 +39,10 @@ function DeclinedSubmissions() {
 useEffect( () => {
   async function fetchData() {
     try {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
       console.log(auth0User.data.app_metadata.roles)
-      const response = await axios.get(`http://localhost:8000/declinedSubmissions`);
+      const response = await axios.get(`/declinedSubmissions`);
       setData(response.data)
 
     } catch(err) {

@@ -64,7 +64,7 @@ class CopyrightInfringingVideos extends Component {
 
           <div key={index}> 
           <Link to={`/${video.id}/video/copyright_infringing`}>
-          <Card style={{width: "250px", height:"250px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
+          <Card style={{width: "250px", height:"270px", marginBottom: "15px", marginTop: "15px", borderColor: "darkgrey"}}>
           <CardImg style={{width: "240px", height:"135px", display: "block",
           marginLeft: "auto",
           marginTop: "4px",

@@ -47,9 +47,9 @@ function ReviewTrack() {
 useEffect( () => {
   async function fetchData() {
     try {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
-       const track = await axios.get(`http://localhost:8000/track/${item_id}`);
+       const track = await axios.get(`/track/${item_id}`);
        console.log(track.data)
        setCopyrightInfringment(track.data[1].copyright_infringing_content)
        setTrackAuthor(track.data[0].author)
@@ -71,7 +71,7 @@ async function acceptPost() {
   console.log("acceptPost")
     try {
 
-      const acceptPost = await axios.put(`http://localhost:8000/acceptSubmission/track/${item_id}`);
+      const acceptPost = await axios.put(`/acceptSubmission/track/${item_id}`);
 
       alert('This post was accepted');
 
@@ -86,7 +86,7 @@ async function acceptPost() {
 async function declinePost() {
     try {
 
-      const declinePost = await axios.put(`http://localhost:8000/declineSubmission/track/${item_id}`);
+      const declinePost = await axios.put(`/declineSubmission/track/${item_id}`);
 
       alert('This post was declined');
 
@@ -102,7 +102,7 @@ async function declinePost() {
 async function deleteProfile() {
     try {
 
-      const deleteProfile = await axios.delete(`http://localhost:8000/removeProfile/${track_author}`);
+      const deleteProfile = await axios.delete(`/removeProfile/${track_author}`);
 
       alert('Author account was deleted for too many copyright strikes');
 
@@ -115,7 +115,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementTrue() {
     try {
 
-      const setCopyrightInfringementTrue = await axios.post(`http://localhost:8000/setCopyrightInfringementTrueTrack/${track_author}/${item_id}`);
+      const setCopyrightInfringementTrue = await axios.post(`/setCopyrightInfringementTrueTrack/${track_author}/${item_id}`);
 
       alert('Copyright Infringement set');
 
@@ -139,7 +139,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementTrueImage() {
     try {
 
-      const setCopyrightInfringementTrue = await axios.post(`http://localhost:8000/setCopyrightInfringementTrueTrackImage/${track_author}/${item_id}/${track_image.image_id}`);
+      const setCopyrightInfringementTrue = await axios.post(`/setCopyrightInfringementTrueTrackImage/${track_author}/${item_id}/${track_image.image_id}`);
 
       alert('Copyright Infringement set');
 
@@ -163,7 +163,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementFalse() {
     try {
 
-      const setCopyrightInfringementFalse = await axios.post(`http://localhost:8000/setCopyrightInfringementFalseTrack/${item_id}`);
+      const setCopyrightInfringementFalse = await axios.post(`/setCopyrightInfringementFalseTrack/${item_id}`);
 
       alert('Copyright Infringement removed');
 
@@ -176,7 +176,7 @@ async function deleteProfile() {
   async function setCopyrightInfringementFalseImage() {
     try {
 
-      const setCopyrightInfringementFalse = await axios.post(`http://localhost:8000/setCopyrightInfringementFalseTrackImage/${item_id}/${track_image.image_id}`);
+      const setCopyrightInfringementFalse = await axios.post(`/setCopyrightInfringementFalseTrackImage/${item_id}/${track_image.image_id}`);
 
       alert('Copyright Infringement removed');
 

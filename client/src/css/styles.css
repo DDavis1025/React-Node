@@ -479,6 +479,10 @@ div#root {
     font-size:12px;
 }
 
+.deletePost {
+  background: red !important;
+}
+
 /*.downloaded-form {
     margin: 20px 10px;
 }*/

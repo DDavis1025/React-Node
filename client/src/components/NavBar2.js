@@ -18,7 +18,7 @@ const NavBar2 = () => {
   async function fetchData() {
     try {
       if (auth0Context.user.sub != undefined) {
-      const auth0User = await axios.get(`http://localhost:8000/getAuth0User/${auth0Context.user.sub}`);
+      const auth0User = await axios.get(`/getAuth0User/${auth0Context.user.sub}`);
       setUser(auth0User.data)
       if (auth0User.data.app_metadata) {
       if (auth0User.data.app_metadata.roles) {
