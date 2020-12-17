@@ -121,6 +121,10 @@ const apiLimiter = rateLimit({
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.get("/", (req, res) => {
+ res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 
 // app.get('/', (request, response) => {
 //   response.json({ info: 'Node.js, Express, and Postgres API' })
