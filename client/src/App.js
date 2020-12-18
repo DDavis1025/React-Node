@@ -89,7 +89,6 @@ function App() {
       <div>
       <Switch>
           <Route path="/" exact />
-          <PrivateRoute path="/profile" component={Profile} />
         </Switch>
 
       <Route exact path="/" render={() => <DownloadTest />} />
@@ -97,20 +96,20 @@ function App() {
       <Route path="/image-upload" component={ImageUpload}/>
       <Route path="/add-album" component={AddAlbum}/>
       <Route path="/downloaded" component={Downloaded} />
-      <Route path="/album/upload" component={AddAlbum}/>
-      <Route path="/video/upload" component={AddVideo}/>
+      <Route path="/upload/album" component={AddAlbum}/>
+      <Route path="/upload/video" component={AddVideo}/>
       <Route path="/album/:albumId" exact component={Album}/>
-      <Route path="/upload" component={Upload}/>
+  
       <Route path="/feed" component={Feed}/>
       <Route path="/user-profile" component={ProfilePage}/>
       <Route path="/:albumId/album/edit" component={EditAlbum}/>
-      <Route path="/albums" exact component={ProfileAlbums}/>
+      <Route path="/profile/albums" exact component={ProfileAlbums}/>
       <Route path="/:videoId/video/edit/" component={EditVideo}/>
-      <Route path="/track/upload/" component={AddTrack}/>
+      <Route path="/upload//track" component={AddTrack}/>
       <Route path="/:trackId/track/edit/" component={EditTrack}/>
       <Route path="/uploads/" component={UploadPage}/>
-      <Route path="/videos/" exact component={ProfileVideos}/>
-      <Route path="/tracks/" exact component={ProfileTracks}/>
+      <Route path="/profile/videos/" exact component={ProfileVideos}/>
+      <Route path="/profile/tracks/" exact component={ProfileTracks}/>
       <Route path="/premium" component={Premium}/>
       <Route path="/billing" component={Billing}/>
       <Route path="/payment" component={Payment}/>
@@ -121,11 +120,12 @@ function App() {
       <Route path="/track/:item_id/review/" component={ReviewTrack}/>
       <Route path="/video/:item_id/review/" component={ReviewVideo}/>
       <Route path="/album/:item_id/review/" component={ReviewAlbum}/>
-      <Route path="/albums/copyright_infringing/" component={CopyrightInfringingAlbums}/>
+      <Route path="/copyright_infringment/albums" component={CopyrightInfringingAlbums}/>
       <Route path="/:album_id/album/copyright_infringing/" exact component={CopyrightInfringingAlbum}/>
-      <Route path="/tracks/copyright_infringing/" exact component={CopyrightInfringingTracks}/>
+     
+      <Route path="/copyright_infringment/tracks/" exact component={CopyrightInfringingTracks}/>
       <Route path="/:item_id/copyright_infringing/track" exact component={CopyrightInfringingTrack}/>
-      <Route path="/videos/copyright_infringing" exact component={CopyrightInfringingVideos}/>
+      <Route path="/copyright_infringment/videos/" exact component={CopyrightInfringingVideos}/>
       <Route path="/:item_id/video/copyright_infringing" exact component={CopyrightInfringingVideo}/>
       <Elements stripe={stripePromise}>
       <Route path="/get-premium" component={Subscription}/>

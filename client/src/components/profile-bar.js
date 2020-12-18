@@ -20,9 +20,9 @@ class ProfileBar extends Component {
  
         <div className="library-nav">
          <ul className="nav-menu">
-         <li><Link className="nav-menu" to="/albums">Albums</Link></li>
-         <li><Link className="nav-menu" to="/tracks">Tracks</Link></li>
-         <li><Link className="nav-menu" to="/videos">Videos</Link></li>
+         <li><Link className="nav-menu" to="/profile/albums">Albums</Link></li>
+         <li><Link className="nav-menu" to="/profile/tracks">Tracks</Link></li>
+         <li><Link className="nav-menu" to="/profile/videos">Videos</Link></li>
          </ul>
         </div>
 

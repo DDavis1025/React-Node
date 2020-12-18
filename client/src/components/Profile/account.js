@@ -250,7 +250,7 @@ function Account() {
         <div>
           <CardTitle><h3><b>Copyright Infringing Content</b></h3></CardTitle>
           <CardText></CardText>
-          <CardLink href={"albums/copyright_infringing"}>
+          <CardLink href={"/copyright_infringment/albums/"}>
           <Button>View</Button>
           </CardLink>
           </div>

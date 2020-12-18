@@ -20,9 +20,9 @@ class CopyrightBar extends Component {
  
         <div className="library-nav">
          <ul className="nav-menu">
-         <li><Link className="nav-menu" to="/albums/copyright_infringing">Albums</Link></li>
-         <li><Link className="nav-menu" to="/tracks/copyright_infringing">Tracks</Link></li>
-         <li><Link className="nav-menu" to="/videos/copyright_infringing">Videos</Link></li>
+         <li><Link className="nav-menu" to="/copyright_infringment/albums/">Albums</Link></li>
+         <li><Link className="nav-menu" to="/copyright_infringment/tracks/">Tracks</Link></li>
+         <li><Link className="nav-menu" to="/copyright_infringment/videos/">Videos</Link></li>
          </ul>
         </div>
 
