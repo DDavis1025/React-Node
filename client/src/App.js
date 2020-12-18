@@ -82,7 +82,7 @@ function App() {
       <Route path="/mobile-privacy-policy" component={PrivacyPolicy}/>
       <Route path="/website-privacy-policy" component={WebsitePrivacyPolicy}/>
       <Route path="/mobile-terms-of-service" component={MobileTermsOfService}/>
-       <Route path="/website-terms-of-service" component={WebsiteTermsOfService}/>
+      <Route path="/website-terms-of-service" component={WebsiteTermsOfService}/>
       <NavBar2 />
       <Navbar/>
       {!email_verified ? 
@@ -149,6 +149,7 @@ function App() {
       <Route path="/mobile-privacy-policy" component={PrivacyPolicy}/>
       <Route path="/website-privacy-policy" component={WebsitePrivacyPolicy}/>
       <Route path="/mobile-terms-of-service" component={MobileTermsOfService}/>
+      <Route path="/website-terms-of-service" component={WebsiteTermsOfService}/>
       <NavBar2 />
       <Navbar/>
       </Router>
