@@ -163,7 +163,7 @@ class UploadPage extends Component {
         <CardBody style={{color:"black"}}>
           <CardTitle><b>Upload Album</b></CardTitle>
           <CardSubtitle>Upload a Hip-Hop or R&B <b>album</b> to a live feed and your own profile</CardSubtitle>
-          <Link to="/album/upload">
+          <Link to="/upload/album/">
           <Button disabled={this.state.disabled} style={{marginTop:"100px"}}>Start</Button>
           </Link>
         </CardBody>
@@ -178,7 +178,7 @@ class UploadPage extends Component {
         <CardBody style={{color:"black"}}>
           <CardTitle><b>Upload Track</b></CardTitle>
           <CardSubtitle>Upload a Hip-Hop or R&B <b>track</b> to a live feed and your own profile</CardSubtitle>
-           <Link to="/track/upload">
+           <Link to="/upload/track">
           <Button disabled={this.state.disabled} style={{marginTop:"100px"}}>Start</Button>
           </Link>
         </CardBody>
@@ -193,7 +193,7 @@ class UploadPage extends Component {
           <CardBody style={{color:"black"}}>
           <CardTitle><b>Upload Video</b></CardTitle>
           <CardSubtitle>Upload a Hip-Hop or R&B <b>video</b> to a live feed and your own profile</CardSubtitle>
-          <Link to="/video/upload">
+          <Link to="/upload/video">
           <Button disabled={this.state.disabled} style={{marginTop:"100px"}}>Start</Button>
           </Link>
         </CardBody>

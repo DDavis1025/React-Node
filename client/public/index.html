@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://app.termageddon.com/js/termageddon.js"></script>
     <script>
     var host = "www.hiphopvolume.com";
     if ((host == window.location.host) && (window.location.protocol != "https:")){
     window.location.protocol = "https";
     }
 var privacyPolicy = "/privacy-policy.html";
-if (screen.width <= 699 && window.location.pathname != privacyPolicy) {
+var termsOfService = "/terms-of-service.html"
+if (screen.width <= 699 && window.location.pathname != privacyPolicy && window.location.pathname != termsOfService) {
    document.location = "mobileIndex.html";
 } else if (screen.width <= 699 && window.location.pathname == privacyPolicy) {
   document.location = "privacy-policy.html";
+} else if (screen.width <= 699 && window.location.pathname == termsOfService) {
+  document.location = "terms-of-service.html";
 }
 </script>
 

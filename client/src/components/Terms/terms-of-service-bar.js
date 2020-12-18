@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 
-class PrivacyPolicyBar extends Component {
+class TermsOfServiceBar extends Component {
   constructor(props) {
     super(props);
   }
@@ -20,8 +20,8 @@ class PrivacyPolicyBar extends Component {
  
         <div className="privacy-policy-nav">
          <ul className="nav-menu">
-         <li><Link className="nav-menu" to="/mobile-privacy-policy">Privacy Policy (Mobile App)</Link></li>
-         <li><Link className="nav-menu" to="/website-privacy-policy">Privacy Policy (Website)</Link></li>
+         <li><Link className="nav-menu" to="/mobile-terms-of-service">Terms Of Service (Mobile App)</Link></li>
+         <li><Link className="nav-menu" to="/website-terms-of-service">Terms Of Service (Website)</Link></li>
          </ul>
         </div>
 
@@ -31,4 +31,4 @@ class PrivacyPolicyBar extends Component {
   }
 }
 
-export default PrivacyPolicyBar;
+export default TermsOfServiceBar;

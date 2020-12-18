@@ -4,6 +4,7 @@ import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 import PrivacyPolicy from "./components/Terms/privacy-policy";
 import WebsitePrivacyPolicy from "./components/Terms/website-privacy-policy";
 import MobileTermsOfService from "./components/Terms/mobile-terms-of-service";
+import WebsiteTermsOfService from "./components/Terms/website-terms-of-service";
 
 import Profile from "./components/Profile";
 import history from "./utils/history";
@@ -81,6 +82,7 @@ function App() {
       <Route path="/mobile-privacy-policy" component={PrivacyPolicy}/>
       <Route path="/website-privacy-policy" component={WebsitePrivacyPolicy}/>
       <Route path="/mobile-terms-of-service" component={MobileTermsOfService}/>
+       <Route path="/website-terms-of-service" component={WebsiteTermsOfService}/>
       <NavBar2 />
       <Navbar/>
       {!email_verified ? 
@@ -105,7 +107,7 @@ function App() {
       <Route path="/:albumId/album/edit" component={EditAlbum}/>
       <Route path="/profile/albums" exact component={ProfileAlbums}/>
       <Route path="/:videoId/video/edit/" component={EditVideo}/>
-      <Route path="/upload//track" component={AddTrack}/>
+      <Route path="/upload/track" component={AddTrack}/>
       <Route path="/:trackId/track/edit/" component={EditTrack}/>
       <Route path="/uploads/" component={UploadPage}/>
       <Route path="/profile/videos/" exact component={ProfileVideos}/>

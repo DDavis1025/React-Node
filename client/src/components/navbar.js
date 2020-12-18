@@ -1,5 +1,7 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom'
+import {NavLink, Link} from 'react-router-dom'
+
+
 
 
 const Navbar = (props) => (
@@ -16,7 +18,8 @@ const Navbar = (props) => (
 
 	<div className="sidenav-footer">
 	<ul>
-	<li><a className="sidenav-footer-li" href="/mobile-privacy-policy">Privacy Policy</a></li>
+	<li><Link className="sidenav-footer-li" to="/mobile-terms-of-service">Terms Of Service</Link></li>
+	<li><Link className="sidenav-footer-li" to="/mobile-privacy-policy">Privacy Policy</Link></li>
 	</ul>
 	</div>
 

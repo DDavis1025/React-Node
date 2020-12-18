@@ -363,19 +363,26 @@ onClick(event) {
 
 
         <Container>
+        <div className="belowList">{this.state.trackSelected && <div>
         <Row>
         <Col>
 
-        <div className="belowList">{this.state.trackSelected && <div>
 
            <ButtonToggle onClick={this.onClick} color="success">Save
            </ButtonToggle> 
+           
+           </Col>
+           </Row>
+
+            <Row>
+         <Col>
+           <h8>By uploading content onto this Website and App, you grant Hip-Hop Volume LLC a worldwide, non-exclusive, perpetual, sub-licensable, royalty-free license to reproduce, publish and distribute the content on or in connection with this site or service.</h8>
+           </Col>
+         </Row>
 </div>
 
 }</div>
 
-</Col>
-</Row>
 </Container>
 
 

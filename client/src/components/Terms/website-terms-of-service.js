@@ -29,21 +29,21 @@ import sanitizeHtml from 'sanitize-html';
 
 
 
-function MobileTermsOfService() {
+function WebsiteTermsOfService() {
   // State
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState('');
 
   useEffect( () => {
     async function getPrivacyPolicy() {
-    let response = await axios.get(`https://app.termageddon.com/api/policy/VDI4ME5VWlRWMEZCU0hsUEszYzlQUT09`);
+    let response = await axios.get(`https://app.termageddon.com/api/policy/VjFwSVFscHlUa2RCVUdJeFdWRTlQUT09`);
     setResponse(response)
     console.log(response)
     }
     getPrivacyPolicy()
-    async function fetchData() {
+  	async function fetchData() {
 
-    try {
+  	try {
     } catch(err) {
     }
    }
@@ -69,9 +69,9 @@ function MobileTermsOfService() {
     `)}} />    
     </div>
 
-    
+  	
 
   );
  };
 
-export default MobileTermsOfService;
+export default WebsiteTermsOfService;
