@@ -117,7 +117,7 @@ const apiLimiter = rateLimit({
     "Too many requests sent. Please wait 20 minutes before trying again."
 });
 
-// app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static("public"));
 
 // app.use((req, res, next) => {
@@ -268,16 +268,9 @@ app.delete('/deleteAccountData/:user_id', artist.deleteAccountData);
 app.delete('/deleteSubscription', artist.deleteSubscription);
 app.delete('/removeProfile/:user_id', artist.removeProfile);
 
-app.use(express.static(path.join(__dirname, "client/build")));
-app.use(express.static("public"));
-
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
-});
-
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 
