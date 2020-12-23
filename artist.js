@@ -293,6 +293,18 @@ const deleteAccountData = async (request, response) => {
       let deleteFromFields = await db.pool.query(
             'DELETE FROM fields WHERE author = $1',
             [user_id])
+      let selectFromFile = await db.pool.query(
+            'SELECT path FROM file WHERE user_id = $1',
+            [user_id])
+      if (selectFromFile.rowCount > 0) {
+      selectFromFile.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromFile = await db.pool.query(
             'DELETE FROM file WHERE user_id = $1',
             [user_id])
@@ -305,36 +317,109 @@ const deleteAccountData = async (request, response) => {
       let deleteFromPurchases = await db.pool.query(
             'DELETE FROM purchases WHERE user_id = $1',
             [user_id])
+      let selectFromSongs = await db.pool.query(
+            'SELECT path FROM songs WHERE user_id = $1',
+            [user_id])
+      if (selectFromSongs.rowCount > 0) {
+      selectFromSongs.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromSongs = await db.pool.query(
             'DELETE FROM songs WHERE user_id = $1',
             [user_id])
       let deleteFromSubComments = await db.pool.query(
             'DELETE FROM sub_comments WHERE user_id = $1',
             [user_id])
+      let selectFromTrack = await db.pool.query(
+            'SELECT path FROM track WHERE author = $1',
+            [user_id])
+      if (selectFromTrack.rowCount > 0) {
+      selectFromTrack.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromTrack = await db.pool.query(
             'DELETE FROM track WHERE author = $1',
             [user_id])
+      let selectFromTrackImages = await db.pool.query(
+            'SELECT path FROM track_images WHERE author = $1',
+            [user_id])
+      if (selectFromTrackImages.rowCount > 0) {
+      selectFromTrackImages.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromTrackImages = await db.pool.query(
             'DELETE FROM track_images WHERE author = $1',
             [user_id])
       let deleteFromUserFollowers = await db.pool.query(
             'DELETE FROM user_followers WHERE user_id = $1',
             [user_id])
+      let selectFromUserImages = await db.pool.query(
+            'SELECT path FROM user_images WHERE user_id = $1',
+            [user_id])
+      if (selectFromUserImages.rowCount > 0) {
+      selectFromUserImages.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromUserImages = await db.pool.query(
             'DELETE FROM user_images WHERE user_id = $1',
             [user_id])
       let deleteFromUserInfo = await db.pool.query(
             'DELETE FROM user_info WHERE user_id = $1',
             [user_id])
+      let selectFromVideo = await db.pool.query(
+            'SELECT path FROM video WHERE author = $1',
+            [user_id])
+      if (selectFromVideo.rowCount > 0) {
+      selectFromVideo.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+       }
       let deleteFromVideo = await db.pool.query(
             'DELETE FROM video WHERE author = $1',
             [user_id])
+      let selectFromVideoThumbnails = await db.pool.query(
+            'SELECT path FROM video_thumbnails WHERE author = $1',
+            [user_id])
+      if (selectFromVideoThumbnails.rowCount > 0) {
+      selectFromVideoThumbnails.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        });
+      }
       let deleteFromVideoThumbnails = await db.pool.query(
             'DELETE FROM video_thumbnails WHERE author = $1',
             [user_id])
       let deleteFromSubscriptions = await db.pool.query(
             'DELETE FROM subscriptions WHERE user_id = $1',
             [user_id])
+
 
       response.status(200).send({ message: "Success Deleting Account" });
     
@@ -492,7 +577,7 @@ const removeProfile = async (request, response) => {
       })
     }
 
-    let deleteFromAlbums = await db.pool.query(
+     let deleteFromAlbums = await db.pool.query(
             'DELETE FROM albums WHERE author = $1',
             [user_id])
       let deleteFromCommentLikes = await db.pool.query(
@@ -501,6 +586,18 @@ const removeProfile = async (request, response) => {
       let deleteFromFields = await db.pool.query(
             'DELETE FROM fields WHERE author = $1',
             [user_id])
+      let selectFromFile = await db.pool.query(
+            'SELECT path FROM file WHERE user_id = $1',
+            [user_id])
+      if (selectFromFile.rowCount > 0) {
+      selectFromFile.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromFile = await db.pool.query(
             'DELETE FROM file WHERE user_id = $1',
             [user_id])
@@ -513,30 +610,102 @@ const removeProfile = async (request, response) => {
       let deleteFromPurchases = await db.pool.query(
             'DELETE FROM purchases WHERE user_id = $1',
             [user_id])
+      let selectFromSongs = await db.pool.query(
+            'SELECT path FROM songs WHERE user_id = $1',
+            [user_id])
+      if (selectFromSongs.rowCount > 0) {
+      selectFromSongs.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromSongs = await db.pool.query(
             'DELETE FROM songs WHERE user_id = $1',
             [user_id])
       let deleteFromSubComments = await db.pool.query(
             'DELETE FROM sub_comments WHERE user_id = $1',
             [user_id])
+      let selectFromTrack = await db.pool.query(
+            'SELECT path FROM track WHERE author = $1',
+            [user_id])
+      if (selectFromTrack.rowCount > 0) {
+      selectFromTrack.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromTrack = await db.pool.query(
             'DELETE FROM track WHERE author = $1',
             [user_id])
+      let selectFromTrackImages = await db.pool.query(
+            'SELECT path FROM track_images WHERE author = $1',
+            [user_id])
+      if (selectFromTrackImages.rowCount > 0) {
+      selectFromTrackImages.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromTrackImages = await db.pool.query(
             'DELETE FROM track_images WHERE author = $1',
             [user_id])
       let deleteFromUserFollowers = await db.pool.query(
             'DELETE FROM user_followers WHERE user_id = $1',
             [user_id])
+      let selectFromUserImages = await db.pool.query(
+            'SELECT path FROM user_images WHERE user_id = $1',
+            [user_id])
+      if (selectFromUserImages.rowCount > 0) {
+      selectFromUserImages.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+      }
       let deleteFromUserImages = await db.pool.query(
             'DELETE FROM user_images WHERE user_id = $1',
             [user_id])
       let deleteFromUserInfo = await db.pool.query(
             'DELETE FROM user_info WHERE user_id = $1',
             [user_id])
+      let selectFromVideo = await db.pool.query(
+            'SELECT path FROM video WHERE author = $1',
+            [user_id])
+      if (selectFromVideo.rowCount > 0) {
+      selectFromVideo.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+       }
       let deleteFromVideo = await db.pool.query(
             'DELETE FROM video WHERE author = $1',
             [user_id])
+      let selectFromVideoThumbnails = await db.pool.query(
+            'SELECT path FROM video_thumbnails WHERE author = $1',
+            [user_id])
+      if (selectFromVideoThumbnails.rowCount > 0) {
+      selectFromVideoThumbnails.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        });
+      }
       let deleteFromVideoThumbnails = await db.pool.query(
             'DELETE FROM video_thumbnails WHERE author = $1',
             [user_id])
@@ -579,7 +748,28 @@ const removeProfile = async (request, response) => {
 }
 
 
+const selectFrom = async (request, response) => {
+  const {user_id} = request.params;
+  try {
+  let selectFromFile = await db.pool.query(
+            'SELECT path FROM file WHERE user_id = $1',
+            [user_id])
+  selectFromFile.rows.map((row) => {
+          var params = {  Bucket: info.BUCKET_NAME, Key: row.path };
+          indexJS.s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("deleted" + data);                 // deleted
+          });
+        })
+
+  response.status(200).json(selectFromFile.rows) 
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 module.exports = {
+   selectFrom,
    deleteSubscription,
    getArtistByID,
    getAllArtistByID,

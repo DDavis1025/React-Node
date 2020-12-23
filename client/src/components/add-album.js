@@ -421,7 +421,7 @@ save2(event) {
   }).then(res => { // then print response status
     console.log(res.statusText)
     const { match, location, history } = this.props;
-    history.push('/albums');
+    history.push('/profile/albums');
 
  })
 }).catch((err)=> {console.log(err)});

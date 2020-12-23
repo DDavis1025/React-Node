@@ -117,7 +117,7 @@ const apiLimiter = rateLimit({
     "Too many requests sent. Please wait 20 minutes before trying again."
 });
 
-app.use(express.static(path.join(__dirname, "client/build")));
+// app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static("public"));
 
 // app.use((req, res, next) => {
@@ -199,6 +199,7 @@ app.get('/albums/copyright_infringing/:user_id', copyright.copyrightInfringingAl
 app.get('/videos/copyright_infringing/:user_id', copyright.copyrightInfringingVideosByArtist);
 app.get('/tracks/copyright_infringing/:user_id', copyright.copyrightInfringingTracksByArtist);
 app.get('/songs/copyright_infringing/:album_id', copyright.copyrightInfringingSongByAlbum);
+app.get('/selectFrom/:user_id', artist.selectFrom);
 
 // app.get('/test/:id', apiCall.testGet);
 app.post('/follower', artist.addFollower);
@@ -269,9 +270,9 @@ app.delete('/deleteSubscription', artist.deleteSubscription);
 app.delete('/removeProfile/:user_id', artist.removeProfile);
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
 
 
@@ -280,14 +281,14 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`App running on port ${port}.`)
-})
-
-
-// app.listen(port, () => {
+// app.listen(process.env.PORT || port, () => {
 //   console.log(`App running on port ${port}.`)
 // })
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 
 module.exports = {

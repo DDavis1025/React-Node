@@ -3,11 +3,21 @@ var comments = require('./comments');
 
 
 const getAll = (request, response) => {
+  let offset = request.query.offset;
+
+  console.log("offset" + offset)
 
 	db.pool.query(
-    'SELECT * FROM albums JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_music IS NOT TRUE AND albums.copyright_infringing_image IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC')
+    'SELECT * FROM albums CROSS JOIN generate_series(1,100) as x JOIN file ON albums.id = file.album_id WHERE albums.copyright_infringing_music IS NOT TRUE AND albums.copyright_infringing_image IS NOT TRUE AND file.copyright_infringing_content IS NOT TRUE AND albums.accepted IS TRUE ORDER BY time_added DESC OFFSET $1 LIMIT 20',
+    [offset])
     .then(results => {
+      if (results.rowCount > 0) {
+      console.log(results.rowCount)
       response.status(200).json(results.rows)
+      } else {
+      console.log("No Content")
+      response.status(204).send({message: "No Content"})
+      }
     }).catch(error => console.log(error));
 }
 

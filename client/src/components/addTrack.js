@@ -227,7 +227,7 @@ save(event) {
   axios.post("/track", data, { 
   }).then(res => { // then print response status
     const { match, location, history } = this.props;
-    history.push("/tracks");
+    history.push("/profile/tracks");
  })
 }).catch((err)=> {console.log(err)});
 
